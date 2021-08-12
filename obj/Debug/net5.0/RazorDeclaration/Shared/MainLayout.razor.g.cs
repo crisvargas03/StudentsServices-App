@@ -82,6 +82,13 @@ using Sistema_Estudiantil.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 11 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Sistema Estudiantil\Sistema Estudiantil\_Imports.razor"
+using MudBlazor;
+
+#line default
+#line hidden
+#nullable disable
     public partial class MainLayout : LayoutComponentBase
     {
         #pragma warning disable 1998
@@ -89,6 +96,19 @@ using Sistema_Estudiantil.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 22 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Sistema Estudiantil\Sistema Estudiantil\Shared\MainLayout.razor"
+       
+    bool _drawerOpen = true;
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+#line default
+#line hidden
+#nullable disable
     }
 }
 #pragma warning restore 1591

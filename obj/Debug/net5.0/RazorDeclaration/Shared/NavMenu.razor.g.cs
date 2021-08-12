@@ -82,6 +82,13 @@ using Sistema_Estudiantil.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 11 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Sistema Estudiantil\Sistema Estudiantil\_Imports.razor"
+using MudBlazor;
+
+#line default
+#line hidden
+#nullable disable
     public partial class NavMenu : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -89,21 +96,6 @@ using Sistema_Estudiantil.Shared;
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 28 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Sistema Estudiantil\Sistema Estudiantil\Shared\NavMenu.razor"
-       
-    private bool collapseNavMenu = true;
-
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-
-#line default
-#line hidden
-#nullable disable
     }
 }
 #pragma warning restore 1591

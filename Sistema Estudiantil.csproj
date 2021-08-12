@@ -5,4 +5,8 @@
     <RootNamespace>Sistema_Estudiantil</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MudBlazor" Version="5.1.0" />
+  </ItemGroup>
+
 </Project>

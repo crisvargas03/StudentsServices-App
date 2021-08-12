@@ -82,6 +82,13 @@ using Sistema_Estudiantil.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 11 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Sistema Estudiantil\Sistema Estudiantil\_Imports.razor"
+using MudBlazor;
+
+#line default
+#line hidden
+#nullable disable
     public partial class App : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
