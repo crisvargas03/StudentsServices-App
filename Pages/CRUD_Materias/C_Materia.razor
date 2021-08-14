@@ -3,10 +3,11 @@
 
 <MudCard Style="margin:25px;">
     <MudCardContent>
+        <MudIconButton Link="/CRUD_Materias/Materias" Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Primary" />
+
         <h2 class="text-center"><strong>Agregar Materia</strong></h2>
         <MudCard Style="background-color:lightgrey;" Class="mt-3">
             <MudCardContent>
-                <MudIconButton Link="/CRUD_Materias/Materias" Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Primary" />
                 <MudExpansionPanel Text="Formulario">
                     <MudForm @ref="form" @bind-IsValid="success" @bind-Errors="errors">
                         <MudGrid Class="mt-3">
