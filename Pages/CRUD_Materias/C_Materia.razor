@@ -1,48 +1,54 @@
 @page "/CRUD_Materias/C_Materia"
 @using Sistema_Estudiantil.Models
 
-<MudCard Style="background-color:lightgrey;" Class="mt-5">
+<MudCard Style="margin:25px;">
     <MudCardContent>
-        <MudIconButton Link="/CRUD_Materias/Materias" Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Primary" />
-        <MudExpansionPanel Text="Formulario">
-            <MudForm @ref="form" @bind-IsValid="success" @bind-Errors="errors">
-                <h2 class="text-center"><strong>Agregar Materia</strong></h2>
-                <MudGrid Class="mt-3">
-                    <MudItem xs="12" sm="6" md="6">
-                        <label>Ingrese el nombre de la materia:</label>
-                        <MudTextField Variant="Variant.Outlined" T="string" @bind-Value="materia.Nombre" Required="true" RequiredError="El campo de materia es requerido..." />
-                    </MudItem>
-                    <MudItem xs="12" sm="6" md="6">
-                        <label>Ingrese los Creditos de la Materia:</label>
-                        <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="materia.Creditos" Required="true" RequiredError="El campo de creditos es requerido..." />
-                    </MudItem>
-                    <MudItem xs="12" Style="display:flex; justify-content:center;">
-                        <MudButton Variant="Variant.Filled" Color="Color.Success" Disabled="@(!success)" @onclick="CreateMateria" EndIcon="@Icons.Filled.Save">Agregar</MudButton>
-                    </MudItem>
-                </MudGrid>
-            </MudForm>
+        <h2 class="text-center"><strong>Agregar Materia</strong></h2>
+        <MudCard Style="background-color:lightgrey;" Class="mt-3">
+            <MudCardContent>
+                <MudIconButton Link="/CRUD_Materias/Materias" Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Primary" />
+                <MudExpansionPanel Text="Formulario">
+                    <MudForm @ref="form" @bind-IsValid="success" @bind-Errors="errors">
+                        <MudGrid Class="mt-3">
+                            <MudItem xs="12" sm="6" md="6">
+                                <label>Ingrese el nombre de la materia:</label>
+                                <MudTextField Variant="Variant.Outlined" T="string" @bind-Value="materia.Nombre" Required="true" RequiredError="El campo de materia es requerido..." />
+                            </MudItem>
+                            <MudItem xs="12" sm="6" md="6">
+                                <label>Ingrese los Creditos de la Materia:</label>
+                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="materia.Creditos" Required="true" RequiredError="El campo de creditos es requerido..." />
+                            </MudItem>
+                            <MudItem xs="12" Style="display:flex; justify-content:center;">
+                                <MudButton Variant="Variant.Filled" Color="Color.Success" Disabled="@(!success)" @onclick="CreateMateria" EndIcon="@Icons.Filled.Save">Agregar</MudButton>
+                            </MudItem>
+                        </MudGrid>
+                    </MudForm>
+                </MudExpansionPanel>
+            </MudCardContent>
+        </MudCard>
+
+        @if (showCallAlert)
+        {
+            <MudAlert Class="mt-5" Severity="Severity.Success" AlertTextPosition="AlertTextPosition.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(false))">Materia añadida de forma correcta</MudAlert>
+        }
+
+        <MudExpansionPanel Style="background-color:lightblue;" Text="Errores del formulario" Class="mt-5">
+            @if (errors.Length == 0)
+            {
+                <MudAlert Style="background-color:white;" Severity="Severity.Info" AlertTextPosition="AlertTextPosition.Center">No hay ningun error en el formulario...</MudAlert>
+            }
+            @if (!success)
+            {
+                @foreach (var error in errors)
+                {
+                    <MudAlert Style="background-color:red; color:white;" Severity="Severity.Error" AlertTextPosition="AlertTextPosition.Center">@error</MudAlert>
+                }
+            }
         </MudExpansionPanel>
     </MudCardContent>
 </MudCard>
 
-@if (showCallAlert)
-{
-    <MudAlert Class="mt-5" Severity="Severity.Success" AlertTextPosition="AlertTextPosition.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(false))">Materia añadida de forma correcta</MudAlert>
-}
 
-<MudExpansionPanel Style="background-color:lightblue;" Text="Errores del formulario" Class="mt-5">
-    @if (errors.Length == 0)
-    {
-        <MudAlert Style="background-color:white;" Severity="Severity.Info" AlertTextPosition="AlertTextPosition.Center">No hay ningun error en el formulario...</MudAlert>
-    }
-    @if (!success)
-    {
-        @foreach (var error in errors)
-        {
-            <MudAlert Style="background-color:red; color:white;" Severity="Severity.Error" AlertTextPosition="AlertTextPosition.Center">@error</MudAlert>
-        }
-    }
-</MudExpansionPanel>
 
 @code{
     bool success;
