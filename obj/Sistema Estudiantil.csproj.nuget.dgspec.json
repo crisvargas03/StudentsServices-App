@@ -1,26 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lusan\\Desktop\\ITLA SEXTO CUATRIMESTRE\\Introducción a la ingienería de Software - Evanyeline Brito\\Sistema Estudiantil\\Sistema Estudiantil\\Sistema Estudiantil.csproj": {}
+    "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lusan\\Desktop\\ITLA SEXTO CUATRIMESTRE\\Introducción a la ingienería de Software - Evanyeline Brito\\Sistema Estudiantil\\Sistema Estudiantil\\Sistema Estudiantil.csproj": {
+    "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lusan\\Desktop\\ITLA SEXTO CUATRIMESTRE\\Introducción a la ingienería de Software - Evanyeline Brito\\Sistema Estudiantil\\Sistema Estudiantil\\Sistema Estudiantil.csproj",
+        "projectUniqueName": "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj",
         "projectName": "Sistema Estudiantil",
-        "projectPath": "C:\\Users\\Lusan\\Desktop\\ITLA SEXTO CUATRIMESTRE\\Introducción a la ingienería de Software - Evanyeline Brito\\Sistema Estudiantil\\Sistema Estudiantil\\Sistema Estudiantil.csproj",
-        "packagesPath": "C:\\Users\\Lusan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lusan\\Desktop\\ITLA SEXTO CUATRIMESTRE\\Introducción a la ingienería de Software - Evanyeline Brito\\Sistema Estudiantil\\Sistema Estudiantil\\obj\\",
+        "projectPath": "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj",
+        "packagesPath": "C:\\Users\\civar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Lusan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\civar\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -47,6 +44,24 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[3.1.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[3.1.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.12, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
             "MudBlazor": {
               "target": "Package",
               "version": "[5.1.0, )"
@@ -70,7 +85,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

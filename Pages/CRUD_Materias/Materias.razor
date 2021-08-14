@@ -1,0 +1,30 @@
+@page "/CRUD_Materias/Materias"
+@using Sistema_Estudiantil.Models
+
+<h2>Materias Registradas</h2>
+<table class="table table-bordered table-dark">
+    <thead>
+        <tr>
+            <th>ID Materia</th>
+            <th>Nombre de la Materia</th>
+            <th>Creditos</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var mat in @GetMaterias()){
+            <tr>
+                <td>@mat.MateriaId</td>
+                <td>@mat.Nombre</td>
+                <td>@mat.Creditos</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<MudNavLink Href="/CRUD_Materias/C_Materia" Icon="@Icons.Filled.NoteAdd">Agregar Materia</MudNavLink>
+<MudNavLink Href="/CRUD_Materias/U_Materia" Icon="@Icons.Filled.NoteAdd">Editar Materia</MudNavLink>
+<MudNavLink Href="/CRUD_Materias/D_Materia" Icon="@Icons.Filled.NoteAdd">Eliminar Materia</MudNavLink>
+
+
+@code{
+    List<Materia> GetMaterias() => new ProgramaEstudiantilDBContext().Materia.ToList();
+}

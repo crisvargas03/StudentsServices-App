@@ -1,0 +1,35 @@
+@page "/CRUD_Materias/C_Materia"
+@using Sistema_Estudiantil.Models
+
+<h2>Agregar Materia</h2>
+
+<p>Ingrese el nombre de la Materia: <input type="text" @bind-value="materia.Nombre"></p>
+<p>Ingrese los Creditos de la Materia: <input type="num" @bind-value="materia.Creditos"></p>
+<button class="btn btn-primary" @onclick="CreateMateria" >Crear Materia</button>
+@Mensaje
+
+@code{
+    string Mensaje;
+    Materia materia = new Materia();
+    void CreateMateria(){
+        //---------------obtener el ultimo registro--------------------------
+        List<Materia> getUltimoId() => new ProgramaEstudiantilDBContext().Materia.OrderByDescending(x => x.MateriaId).Take(1).ToList();
+            
+        foreach (var i in getUltimoId())
+        {
+            materia.MateriaId = Convert.ToInt32(i.MateriaId + 1);
+        }
+        //----------------------Fin----------------------------
+        
+        if (materia.Nombre == null) {
+            Mensaje = "El nombre de la materia no puede estar vacio!";
+        }
+        else {
+            using (ProgramaEstudiantilDBContext cmd_Insert = new ProgramaEstudiantilDBContext()){
+                cmd_Insert.Add(materia);
+                cmd_Insert.SaveChanges();
+                Mensaje="Materia Registrada!";
+            }
+        }
+    }
+}

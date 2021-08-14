@@ -1,0 +1,60 @@
+@page "/CRUD_Materias/U_Materia"
+@using Sistema_Estudiantil.Models
+
+<h2>Editar Materia</h2>
+<p> Ingrese el Codigo de la Materia: <input type="text" @bind-value="materia.MateriaId"><button class="btn btn-primary" @onclick="findMateria" >Buscar Materia</button> </p>
+<p>Ingrese el nombre de la Materia: <input type="text" @bind-value="materia.Nombre"></p>
+<p>Ingrese los Creditos de la Materia: <input type="num" @bind-value="materia.Creditos"></p>
+<button class="btn btn-primary" @onclick="updateMateria" >Editar Materia</button>
+
+@Mensaje
+
+@code{
+    string Mensaje;
+    Materia materia = new Materia();
+    ProgramaEstudiantilDBContext context = new ProgramaEstudiantilDBContext();
+    List<Materia> getMaterias() => new ProgramaEstudiantilDBContext().Materia.Where(X => X.MateriaId == materia.MateriaId).ToList();
+
+    void updateMateria(){
+        if (materia.MateriaId == 0)
+            {
+                Mensaje = "Debe llenar el campo Codigo por favor";
+            }
+            else
+            {
+                var materiaUpdated = context.Materia.FirstOrDefault(x => x.MateriaId == materia.MateriaId);
+                materiaUpdated.Nombre = materia.Nombre;
+                materiaUpdated.Creditos = materia.Creditos;
+                context.SaveChanges();
+                Mensaje = "Materia editada!";
+            }
+    }
+
+    void findMateria(){
+        using(ProgramaEstudiantilDBContext Buscar = new ProgramaEstudiantilDBContext())
+        {
+            if (materia.MateriaId == 0)
+            {
+                Mensaje = "Debe llenar el campo cedula por favor";
+            }
+            else
+            {
+                foreach (var item in getMaterias())
+                {
+                    bool exists = true;
+                    if (exists){
+                        materia.Nombre = item.Nombre;
+                        materia.Creditos = item.Creditos;
+                    }
+                }
+                
+            }
+            if (materia.Nombre == null){
+                Mensaje = "Materia no encontrada";
+            }
+            else{
+                Mensaje = "";
+            }
+        }    
+    }
+}

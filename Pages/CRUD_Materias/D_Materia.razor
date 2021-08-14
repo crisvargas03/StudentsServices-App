@@ -1,0 +1,43 @@
+@page "/CRUD_Materias/D_Materia"
+@using Sistema_Estudiantil.Models
+
+<h2>Eliminar Materia</h2>
+
+<p>Ingrese el codigo de la Materia: <input type="num" @bind-value="materia.MateriaId"></p>
+<button class="btn btn-primary" @onclick="DeleteMateria" >Eliminar</button>
+@Mensaje
+
+@code{
+    bool exists;
+    string Mensaje;
+    Materia materia = new Materia();
+    List<Materia> GetMaterias() => new ProgramaEstudiantilDBContext().Materia.Where(x => x.MateriaId == materia.MateriaId).ToList();
+    void DeleteMateria()
+    {
+        using (ProgramaEstudiantilDBContext cmd_Delete = new ProgramaEstudiantilDBContext())
+        {
+            if (materia.MateriaId == 0)
+            {
+                Mensaje = "Debe Lenar el Campo Cedula!";
+            }
+            else
+            {
+                foreach (var item in @GetMaterias())
+                {
+                    exists = true;
+                }
+                if (exists == true)
+                {
+                    cmd_Delete.Remove(materia);
+                    cmd_Delete.SaveChanges();
+                    Mensaje = "Materia Eliminada!";
+                }
+                else
+                {
+                    Mensaje = "Materia no encontrada!";
+                }
+            }
+        }
+        materia.MateriaId = 0;
+    }
+}
