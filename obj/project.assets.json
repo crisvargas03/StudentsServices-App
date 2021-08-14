@@ -7505,23 +7505,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\civar\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\Lusan\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj",
+      "projectUniqueName": "C:\\Users\\Lusan\\Desktop\\ITLA SEXTO CUATRIMESTRE\\Introducción a la ingienería de Software - Evanyeline Brito\\Sistema Estudiantil\\Sistema Estudiantil\\Sistema Estudiantil.csproj",
       "projectName": "Sistema Estudiantil",
-      "projectPath": "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj",
-      "packagesPath": "C:\\Users\\civar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\obj\\",
+      "projectPath": "C:\\Users\\Lusan\\Desktop\\ITLA SEXTO CUATRIMESTRE\\Introducción a la ingienería de Software - Evanyeline Brito\\Sistema Estudiantil\\Sistema Estudiantil\\Sistema Estudiantil.csproj",
+      "packagesPath": "C:\\Users\\Lusan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Lusan\\Desktop\\ITLA SEXTO CUATRIMESTRE\\Introducción a la ingienería de Software - Evanyeline Brito\\Sistema Estudiantil\\Sistema Estudiantil\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\civar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Lusan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -7589,7 +7594,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

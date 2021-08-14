@@ -1,30 +1,57 @@
 @page "/CRUD_Materias/Materias"
 @using Sistema_Estudiantil.Models
 
-<h2>Materias Registradas</h2>
-<table class="table table-bordered table-dark">
-    <thead>
-        <tr>
-            <th>ID Materia</th>
-            <th>Nombre de la Materia</th>
-            <th>Creditos</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var mat in @GetMaterias()){
-            <tr>
-                <td>@mat.MateriaId</td>
-                <td>@mat.Nombre</td>
-                <td>@mat.Creditos</td>
-            </tr>
-        }
-    </tbody>
-</table>
-<MudNavLink Href="/CRUD_Materias/C_Materia" Icon="@Icons.Filled.NoteAdd">Agregar Materia</MudNavLink>
-<MudNavLink Href="/CRUD_Materias/U_Materia" Icon="@Icons.Filled.NoteAdd">Editar Materia</MudNavLink>
-<MudNavLink Href="/CRUD_Materias/D_Materia" Icon="@Icons.Filled.NoteAdd">Eliminar Materia</MudNavLink>
+<!--Injects for Datatable-->
+@inject IJSRuntime JSRuntime
+@implements IDisposable
 
+<MudCard Style="margin:25px;">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <h2 class="text-center mt-5"><strong>Materias Registradas</strong></h2>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudIconButton Link="/CRUD_Materias/C_Materia" Icon="@Icons.Material.Filled.NoteAdd" Color="Color.Primary" />
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <table class="table table-bordered" id="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID Materia</th>
+                    <th>Nombre de la Materia</th>
+                    <th>Creditos</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var mat in GetMaterias())
+                {
+                    <tr>
+                        <td>@mat.MateriaId</td>
+                        <td>@mat.Nombre</td>
+                        <td>@mat.Creditos</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton StartIcon="@Icons.Material.Filled.Edit" Link="/CRUD_Materias/U_Materia" Variant="Variant.Text" Color="Color.Info">Editar</MudButton>
+        <MudButton StartIcon="@Icons.Material.Filled.Delete" Link="/CRUD_Materias/D_Materia" Variant="Variant.Text" Color="Color.Error">Eliminar</MudButton>
+    </MudCardActions>
+</MudCard>
 
 @code{
     List<Materia> GetMaterias() => new ProgramaEstudiantilDBContext().Materia.ToList();
+
+    //Methods for the funcionality of Datatable
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JSRuntime.InvokeAsync<object>("TestDataTablesAdd", "#table");
+    }
+    void IDisposable.Dispose()
+    {
+        JSRuntime.InvokeAsync<object>("TestDataTablesRemove", "#table");
+    }
+
 }
