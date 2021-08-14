@@ -105,8 +105,34 @@ using Sistema_Estudiantil.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 10 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Sistema Estudiantil\Sistema Estudiantil\Pages\CRUD_Materias\D_Materia.razor"
+#line 70 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Sistema Estudiantil\Sistema Estudiantil\Pages\CRUD_Materias\D_Materia.razor"
       
+    bool success;
+    string[] errors = { };
+    MudTextField<string> pwField1;
+    MudForm form;
+
+    //Mostrar el formulario de editar, cuando el id sea encontrado
+    bool showErrorAlert = false;
+    bool showErrorNotFoundAlert = false;
+    bool showSuccessfulAlert = false;
+
+    private void CloseMe(bool value)
+    {
+        if (value)
+        {
+            showErrorAlert = false;
+            showErrorNotFoundAlert = false;
+            showSuccessfulAlert = false;
+        }
+        else
+        {
+            showErrorAlert = false;
+            showErrorNotFoundAlert = false;
+            showSuccessfulAlert = false;
+        }
+    }
+
     bool exists;
     string Mensaje;
     Materia materia = new Materia();
@@ -117,6 +143,8 @@ using Sistema_Estudiantil.Models;
         {
             if (materia.MateriaId == 0)
             {
+                showErrorNotFoundAlert = false;
+                showErrorAlert = true;
                 Mensaje = "Debe Lenar el Campo Cedula!";
             }
             else
@@ -129,11 +157,14 @@ using Sistema_Estudiantil.Models;
                 {
                     cmd_Delete.Remove(materia);
                     cmd_Delete.SaveChanges();
+                    showSuccessfulAlert = true;
                     Mensaje = "Materia Eliminada!";
                 }
                 else
                 {
                     Mensaje = "Materia no encontrada!";
+                    showErrorAlert = false;
+                    showErrorNotFoundAlert = true;
                 }
             }
         }

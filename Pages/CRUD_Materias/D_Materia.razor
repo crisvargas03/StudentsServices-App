@@ -3,11 +3,97 @@
 
 <h2>Eliminar Materia</h2>
 
-<p>Ingrese el codigo de la Materia: <input type="num" @bind-value="materia.MateriaId"></p>
-<button class="btn btn-primary" @onclick="DeleteMateria" >Eliminar</button>
+<p>Ingrese el codigo de la Materia: <input type="number" @bind-value="materia.MateriaId"></p>
+<button class="btn btn-primary" @onclick="DeleteMateria">Eliminar</button>
 @Mensaje
 
+<MudCard Style="margin:30px;">
+    <MudCardContent>
+        <MudIconButton Link="/CRUD_Materias/Materias" Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Primary" />
+        <h2 class="text-center"><strong>Eliminar Materia</strong></h2>
+        <MudGrid Class="mt-3">
+            <MudExpansionPanel Class="bg-light" Text="Formulario para eliminar la materia">
+                <MudForm @ref="form" @bind-IsValid="success" @bind-Errors="errors">
+                    <MudGrid Class="mt-3">
+                        <MudItem xs="12">
+                            <label>Ingrese el Codigo de la Materia:</label>
+                            <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="materia.MateriaId" Required="true" RequiredError="El campo de eliminar la materia es requerido..." />
+                        </MudItem>
+                        <MudItem xs="12" Style="display:flex; justify-content:center;">
+                            <MudButton Variant="Variant.Filled" Color="Color.Error" Disabled="@(!success)" @onclick="DeleteMateria" EndIcon="@Icons.Filled.DeleteForever">Eliminar</MudButton>
+                        </MudItem>
+                    </MudGrid>
+                </MudForm>
+            </MudExpansionPanel>
+        </MudGrid>
+    </MudCardContent>
+</MudCard>
+
+@if (showErrorAlert)
+{
+    <MudAlert Style="margin-bottom:25px;"
+              Severity="Severity.Error"
+              Variant="Variant.Filled"
+              AlertTextPosition="AlertTextPosition.Center"
+              ShowCloseIcon="true"
+              CloseIconClicked="(() => CloseMe(false))">
+        Debe llenar el campo del codigo de la materia...
+    </MudAlert>
+}
+
+@if (showErrorNotFoundAlert)
+{
+    <MudAlert Style="margin-bottom:25px;"
+              Severity="Severity.Error"
+              Variant="Variant.Filled"
+              AlertTextPosition="AlertTextPosition.Center"
+              ShowCloseIcon="true"
+              CloseIconClicked="(() => CloseMe(false))">
+        La materia no fue encontrada...
+    </MudAlert>
+}
+
+@if (showSuccessfulAlert)
+{
+    <MudAlert Style="margin-bottom:25px;"
+              Severity="Severity.Success"
+              Variant="Variant.Filled"
+              AlertTextPosition="AlertTextPosition.Center"
+              ShowCloseIcon="true"
+              CloseIconClicked="(() => CloseMe(false))">
+        La materia fue eliminada de forma correcta...
+    </MudAlert>
+}
+
+
+
 @code{
+    bool success;
+    string[] errors = { };
+    MudTextField<string> pwField1;
+    MudForm form;
+
+    //Mostrar el formulario de editar, cuando el id sea encontrado
+    bool showErrorAlert = false;
+    bool showErrorNotFoundAlert = false;
+    bool showSuccessfulAlert = false;
+
+    private void CloseMe(bool value)
+    {
+        if (value)
+        {
+            showErrorAlert = false;
+            showErrorNotFoundAlert = false;
+            showSuccessfulAlert = false;
+        }
+        else
+        {
+            showErrorAlert = false;
+            showErrorNotFoundAlert = false;
+            showSuccessfulAlert = false;
+        }
+    }
+
     bool exists;
     string Mensaje;
     Materia materia = new Materia();
@@ -18,6 +104,8 @@
         {
             if (materia.MateriaId == 0)
             {
+                showErrorNotFoundAlert = false;
+                showErrorAlert = true;
                 Mensaje = "Debe Lenar el Campo Cedula!";
             }
             else
@@ -30,11 +118,14 @@
                 {
                     cmd_Delete.Remove(materia);
                     cmd_Delete.SaveChanges();
+                    showSuccessfulAlert = true;
                     Mensaje = "Materia Eliminada!";
                 }
                 else
                 {
                     Mensaje = "Materia no encontrada!";
+                    showErrorAlert = false;
+                    showErrorNotFoundAlert = true;
                 }
             }
         }
