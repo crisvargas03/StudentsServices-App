@@ -105,54 +105,83 @@ using Sistema_Estudiantil.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 12 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Sistema Estudiantil\Sistema Estudiantil\Pages\CRUD_Materias\U_Materia.razor"
+#line 79 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Sistema Estudiantil\Sistema Estudiantil\Pages\CRUD_Materias\U_Materia.razor"
       
-    string Mensaje;
+    bool success;
+    string[] errors = { };
+    MudTextField<string> pwField1;
+    MudForm form;
+
+    bool successEdit;
+    string[] errorsEdit = { };
+    MudTextField<string> pwField2;
+    MudForm formEdit;
+
+    //Mostrar el formulario de editar, cuando el id sea encontrado
+    bool idFinded = false;
+    bool showAlert = false;
+    bool showErrorAlert = false;
+    bool showCorrectAlert = false;
+
+    private void CloseMe(bool value)
+    {
+        if (value)
+        {
+            showAlert = false;
+            showErrorAlert = false;
+            showCorrectAlert = false;
+        }
+        else
+        {
+            showAlert = false;
+            showErrorAlert = false;
+            showCorrectAlert = false;
+        }
+    }
+
     Materia materia = new Materia();
     ProgramaEstudiantilDBContext context = new ProgramaEstudiantilDBContext();
     List<Materia> getMaterias() => new ProgramaEstudiantilDBContext().Materia.Where(X => X.MateriaId == materia.MateriaId).ToList();
 
-    void updateMateria(){
-        if (materia.MateriaId == 0)
-            {
-                Mensaje = "Debe llenar el campo Codigo por favor";
-            }
-            else
-            {
-                var materiaUpdated = context.Materia.FirstOrDefault(x => x.MateriaId == materia.MateriaId);
-                materiaUpdated.Nombre = materia.Nombre;
-                materiaUpdated.Creditos = materia.Creditos;
-                context.SaveChanges();
-                Mensaje = "Materia editada!";
-            }
+    void updateMateria()
+    {
+        var materiaUpdated = context.Materia.FirstOrDefault(x => x.MateriaId == materia.MateriaId);
+        materiaUpdated.Nombre = materia.Nombre;
+        materiaUpdated.Creditos = materia.Creditos;
+        context.SaveChanges();
+        showCorrectAlert = true;
     }
 
-    void findMateria(){
-        using(ProgramaEstudiantilDBContext Buscar = new ProgramaEstudiantilDBContext())
+    void findMateria()
+    {
+        using (ProgramaEstudiantilDBContext Buscar = new ProgramaEstudiantilDBContext())
         {
             if (materia.MateriaId == 0)
             {
-                Mensaje = "Debe llenar el campo cedula por favor";
+                idFinded = false;
+                showErrorAlert = true;
             }
             else
             {
                 foreach (var item in getMaterias())
                 {
                     bool exists = true;
-                    if (exists){
+                    if (exists)
+                    {
+                        idFinded = true;
+                        showAlert = true;
                         materia.Nombre = item.Nombre;
                         materia.Creditos = item.Creditos;
                     }
                 }
-                
+
             }
-            if (materia.Nombre == null){
-                Mensaje = "Materia no encontrada";
+            if (materia.Nombre == null)
+            {
+                idFinded = false;
+                showErrorAlert = true;
             }
-            else{
-                Mensaje = "";
-            }
-        }    
+        }
     }
 
 #line default

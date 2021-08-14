@@ -1,60 +1,156 @@
 @page "/CRUD_Materias/U_Materia"
 @using Sistema_Estudiantil.Models
 
-<h2>Editar Materia</h2>
-<p> Ingrese el Codigo de la Materia: <input type="text" @bind-value="materia.MateriaId"><button class="btn btn-primary" @onclick="findMateria" >Buscar Materia</button> </p>
+@*<h2>Editar Materia</h2>
+<p> Ingrese el Codigo de la Materia: <input type="text" @bind-value="materia.MateriaId"><button class="btn btn-primary" @onclick="findMateria">Buscar Materia</button> </p>
 <p>Ingrese el nombre de la Materia: <input type="text" @bind-value="materia.Nombre"></p>
-<p>Ingrese los Creditos de la Materia: <input type="num" @bind-value="materia.Creditos"></p>
-<button class="btn btn-primary" @onclick="updateMateria" >Editar Materia</button>
+<p>Ingrese los Creditos de la Materia: <input type="number" @bind-value="materia.Creditos"></p>
+<button class="btn btn-primary" @onclick="updateMateria">Editar Materia</button>*@
 
-@Mensaje
+<MudCard Style="margin:30px;">
+    <MudCardContent>
+        <MudIconButton Link="/CRUD_Materias/Materias" Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Primary" />
+        <h2 class="text-center"><strong>Editar Materia</strong></h2>
+        <MudGrid Class="mt-3">
+            <MudItem xs="6">
+                <MudExpansionPanel Class="bg-light" Text="Buscar materia a editar">
+                    <MudForm @ref="form" @bind-IsValid="success" @bind-Errors="errors">
+                        <MudGrid Class="mt-3">
+                            <MudItem xs="12" sm="6" md="12">
+                                <label>Ingrese el Codigo de la Materia:</label>
+                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="materia.MateriaId" Required="true" RequiredError="El campo de buscar materia es requerido..." />
+                            </MudItem>
+                            <MudItem xs="12" Style="display:flex; justify-content:center;">
+                                <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" @onclick="findMateria" EndIcon="@Icons.Filled.Search">Buscar</MudButton>
+                            </MudItem>
+                            <MudItem xs="12">
+                                @if (idFinded && showAlert)
+                                {
+                                    <MudAlert ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(false))" Severity="Severity.Success">Registro encontrado de forma correcta...</MudAlert>
+
+                                }
+                                @if (!idFinded && showErrorAlert)
+                                {
+                                    <MudAlert ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(false))" Severity="Severity.Error">El registro no fue encontrado...</MudAlert>
+                                }
+                            </MudItem>
+                        </MudGrid>
+                    </MudForm>
+                </MudExpansionPanel>
+            </MudItem>
+            <MudItem xs="6">
+                <MudExpansionPanel Class="bg-light" Text="Formulario de editar materia">
+                    @if (idFinded)
+                    {
+                        <MudForm @ref="formEdit" @bind-IsValid="successEdit" @bind-Errors="errorsEdit">
+                            <MudGrid Class="mt-3">
+                                <MudItem xs="12">
+                                    <label>Ingrese el nombre de la materia:</label>
+                                    <MudTextField Variant="Variant.Outlined" T="string" @bind-Value="materia.Nombre" Required="true" RequiredError="El campo de materia es requerido..." />
+                                </MudItem>
+                                <MudItem xs="12">
+                                    <label>Ingrese los Creditos de la Materia:</label>
+                                    <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="materia.Creditos" Required="true" RequiredError="El campo de creditos es requerido..." />
+                                </MudItem>
+                                <MudItem xs="12" Style="display:flex; justify-content:center;">
+                                    <MudButton Variant="Variant.Filled" Color="Color.Success" @onclick="updateMateria" EndIcon="@Icons.Filled.Update">Actualizar materia</MudButton>
+                                </MudItem>
+                            </MudGrid>
+                        </MudForm>
+                    }
+                </MudExpansionPanel>
+            </MudItem>
+        </MudGrid>
+    </MudCardContent>
+</MudCard>
+
+@if (showCorrectAlert)
+{
+    <MudAlert Style="margin-bottom:25px;"
+              Severity="Severity.Success"
+              Variant="Variant.Filled"
+              AlertTextPosition="AlertTextPosition.Center"
+              ShowCloseIcon="true"
+              CloseIconClicked="(() => CloseMe(false))">
+        La materia ha sido editada de forma correcta...
+    </MudAlert>
+}
 
 @code{
-    string Mensaje;
+    bool success;
+    string[] errors = { };
+    MudTextField<string> pwField1;
+    MudForm form;
+
+    bool successEdit;
+    string[] errorsEdit = { };
+    MudTextField<string> pwField2;
+    MudForm formEdit;
+
+    //Mostrar el formulario de editar, cuando el id sea encontrado
+    bool idFinded = false;
+    bool showAlert = false;
+    bool showErrorAlert = false;
+    bool showCorrectAlert = false;
+
+    private void CloseMe(bool value)
+    {
+        if (value)
+        {
+            showAlert = false;
+            showErrorAlert = false;
+            showCorrectAlert = false;
+        }
+        else
+        {
+            showAlert = false;
+            showErrorAlert = false;
+            showCorrectAlert = false;
+        }
+    }
+
     Materia materia = new Materia();
     ProgramaEstudiantilDBContext context = new ProgramaEstudiantilDBContext();
     List<Materia> getMaterias() => new ProgramaEstudiantilDBContext().Materia.Where(X => X.MateriaId == materia.MateriaId).ToList();
 
-    void updateMateria(){
-        if (materia.MateriaId == 0)
-            {
-                Mensaje = "Debe llenar el campo Codigo por favor";
-            }
-            else
-            {
-                var materiaUpdated = context.Materia.FirstOrDefault(x => x.MateriaId == materia.MateriaId);
-                materiaUpdated.Nombre = materia.Nombre;
-                materiaUpdated.Creditos = materia.Creditos;
-                context.SaveChanges();
-                Mensaje = "Materia editada!";
-            }
+    void updateMateria()
+    {
+        var materiaUpdated = context.Materia.FirstOrDefault(x => x.MateriaId == materia.MateriaId);
+        materiaUpdated.Nombre = materia.Nombre;
+        materiaUpdated.Creditos = materia.Creditos;
+        context.SaveChanges();
+        showCorrectAlert = true;
     }
 
-    void findMateria(){
-        using(ProgramaEstudiantilDBContext Buscar = new ProgramaEstudiantilDBContext())
+    void findMateria()
+    {
+        using (ProgramaEstudiantilDBContext Buscar = new ProgramaEstudiantilDBContext())
         {
             if (materia.MateriaId == 0)
             {
-                Mensaje = "Debe llenar el campo cedula por favor";
+                idFinded = false;
+                showErrorAlert = true;
             }
             else
             {
                 foreach (var item in getMaterias())
                 {
                     bool exists = true;
-                    if (exists){
+                    if (exists)
+                    {
+                        idFinded = true;
+                        showAlert = true;
                         materia.Nombre = item.Nombre;
                         materia.Creditos = item.Creditos;
                     }
                 }
-                
+
             }
-            if (materia.Nombre == null){
-                Mensaje = "Materia no encontrada";
+            if (materia.Nombre == null)
+            {
+                idFinded = false;
+                showErrorAlert = true;
             }
-            else{
-                Mensaje = "";
-            }
-        }    
+        }
     }
 }
