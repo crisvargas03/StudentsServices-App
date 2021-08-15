@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Vheysck\\Desktop\\Mayo - Agosto 2021\\Introduccion a la ingenieria de software\\Proyecto Final\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj": {}
+    "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Vheysck\\Desktop\\Mayo - Agosto 2021\\Introduccion a la ingenieria de software\\Proyecto Final\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj": {
+    "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Vheysck\\Desktop\\Mayo - Agosto 2021\\Introduccion a la ingenieria de software\\Proyecto Final\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj",
+        "projectUniqueName": "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj",
         "projectName": "Sistema Estudiantil",
-        "projectPath": "C:\\Users\\Vheysck\\Desktop\\Mayo - Agosto 2021\\Introduccion a la ingenieria de software\\Proyecto Final\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj",
-        "packagesPath": "C:\\Users\\Vheysck\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Vheysck\\Desktop\\Mayo - Agosto 2021\\Introduccion a la ingenieria de software\\Proyecto Final\\Intro_Ingenieria_G5\\obj\\",
+        "projectPath": "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj",
+        "packagesPath": "C:\\Users\\civar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Vheysck\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\civar\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],

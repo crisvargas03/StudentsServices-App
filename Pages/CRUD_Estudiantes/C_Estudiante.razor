@@ -61,7 +61,7 @@
 
         @if (showCallAlert)
         {
-            <MudAlert Class="mt-5" Severity="Severity.Success" AlertTextPosition="AlertTextPosition.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(false))">Estudiante añadido de forma correcta</MudAlert>
+            <MudAlert Class="mt-5" Severity="Severity.Success" AlertTextPosition="AlertTextPosition.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(false))">Estudiante aï¿½adido de forma correcta</MudAlert>
         }
 
         <MudExpansionPanel Style="background-color:lightblue;" Text="Errores del formulario" Class="mt-5">
@@ -93,11 +93,11 @@
     void CreateEstudiante()
     {
         //---------------obtener el ultimo registro--------------------------
-        List<Estudiante> getUltimoId() => new ProgramaEstudiantilDBContext().Materia.OrderByDescending(x => x.MateriaId).Take(1).ToList();
+        List<Estudiante> getUltimoId() => new ProgramaEstudiantilDBContext().Estudiante.OrderByDescending(x => x.Matricula).Take(1).ToList();
 
         foreach (var i in getUltimoId())
         {
-            Estudiante.matricula = Convert.ToInt32(i.matricula + 1);
+            estudiante.Matricula = Convert.ToInt32(i.Matricula + 1);
         }
         //----------------------Fin----------------------------
 

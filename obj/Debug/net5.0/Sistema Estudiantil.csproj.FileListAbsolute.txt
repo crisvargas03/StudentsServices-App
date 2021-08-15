@@ -544,3 +544,11 @@ C:\Users\Vheysck\Desktop\Mayo - Agosto 2021\Introduccion a la ingenieria de soft
 C:\Users\Vheysck\Desktop\Mayo - Agosto 2021\Introduccion a la ingenieria de software\Proyecto Final\Intro_Ingenieria_G5\obj\Debug\net5.0\RazorDeclaration\Pages\CRUD_Estudiantes\D_Estudiante.razor.g.cs
 C:\Users\Vheysck\Desktop\Mayo - Agosto 2021\Introduccion a la ingenieria de software\Proyecto Final\Intro_Ingenieria_G5\obj\Debug\net5.0\RazorDeclaration\Pages\CRUD_Estudiantes\Estudiantes.razor.g.cs
 C:\Users\Vheysck\Desktop\Mayo - Agosto 2021\Introduccion a la ingenieria de software\Proyecto Final\Intro_Ingenieria_G5\obj\Debug\net5.0\RazorDeclaration\Pages\CRUD_Estudiantes\U_Estudiante.razor.g.cs
+C:\Users\civar\Desktop\Tarea\Introduccion a Ingenieria\Intro_Ingenieria_G5\obj\Debug\net5.0\RazorDeclaration\Pages\CRUD_Estudiantes\C_Estudiante.razor.g.cs
+C:\Users\civar\Desktop\Tarea\Introduccion a Ingenieria\Intro_Ingenieria_G5\obj\Debug\net5.0\RazorDeclaration\Pages\CRUD_Estudiantes\D_Estudiante.razor.g.cs
+C:\Users\civar\Desktop\Tarea\Introduccion a Ingenieria\Intro_Ingenieria_G5\obj\Debug\net5.0\RazorDeclaration\Pages\CRUD_Estudiantes\Estudiantes.razor.g.cs
+C:\Users\civar\Desktop\Tarea\Introduccion a Ingenieria\Intro_Ingenieria_G5\obj\Debug\net5.0\RazorDeclaration\Pages\CRUD_Estudiantes\U_Estudiante.razor.g.cs
+C:\Users\civar\Desktop\Tarea\Introduccion a Ingenieria\Intro_Ingenieria_G5\obj\Debug\net5.0\Razor\Pages\CRUD_Estudiantes\C_Estudiante.razor.g.cs
+C:\Users\civar\Desktop\Tarea\Introduccion a Ingenieria\Intro_Ingenieria_G5\obj\Debug\net5.0\Razor\Pages\CRUD_Estudiantes\D_Estudiante.razor.g.cs
+C:\Users\civar\Desktop\Tarea\Introduccion a Ingenieria\Intro_Ingenieria_G5\obj\Debug\net5.0\Razor\Pages\CRUD_Estudiantes\Estudiantes.razor.g.cs
+C:\Users\civar\Desktop\Tarea\Introduccion a Ingenieria\Intro_Ingenieria_G5\obj\Debug\net5.0\Razor\Pages\CRUD_Estudiantes\U_Estudiante.razor.g.cs
