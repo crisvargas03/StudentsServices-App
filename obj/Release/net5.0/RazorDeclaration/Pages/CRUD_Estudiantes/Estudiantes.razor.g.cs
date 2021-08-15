@@ -96,7 +96,7 @@ using Sistema_Estudiantil.Models;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/CRUD_Materias/Estudiantes")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/CRUD_Estudiantes/Estudiantes")]
     public partial class Estudiantes : Microsoft.AspNetCore.Components.ComponentBase, IDisposable
     {
         #pragma warning disable 1998

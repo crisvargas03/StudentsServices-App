@@ -96,7 +96,7 @@ using Sistema_Estudiantil.Models;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/CRUD_Materias/C_Estudiante")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/CRUD_Estudiantes/C_Estudiante")]
     public partial class C_Estudiante : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -117,11 +117,11 @@ using Sistema_Estudiantil.Models;
     void CreateEstudiante()
     {
         //---------------obtener el ultimo registro--------------------------
-        List<Estudiante> getUltimoId() => new ProgramaEstudiantilDBContext().Materia.OrderByDescending(x => x.MateriaId).Take(1).ToList();
+        List<Estudiante> getUltimoId() => new ProgramaEstudiantilDBContext().Estudiante.OrderByDescending(x => x.Matricula).Take(1).ToList();
 
         foreach (var i in getUltimoId())
         {
-            estudiante.matricula = Convert.ToInt32(i.matricula + 1);
+            estudiante.Matricula = Convert.ToInt32(i.Matricula + 1);
         }
         //----------------------Fin----------------------------
 

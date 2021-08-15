@@ -13,21 +13,16 @@
                         <MudGrid Class="mt-3">
                             <MudItem xs="12" sm="6" md="6">
                                 <label>Ingrese la matricla del estudiante:</label>
-                                <MudTextField Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Matricula" Required="true" RequiredError="El campo de matricula es requerido..." />
+                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Matricula" Required="true" RequiredError="El campo de matricula es requerido..." />
                             </MudItem>
                             <MudItem xs="12" sm="6" md="6">
                                 <label>Ingrese el nombre del estudiante:</label>
-                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Nombre" Required="true" RequiredError="El campo de nombre es requerido..." />
+                                <MudTextField Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Nombre" Required="true" RequiredError="El campo de nombre es requerido..." />
                             </MudItem>
 
                             <MudItem xs="12" sm="6" md="6">
                                 <label>Ingrese el apellido del estudiante:</label>
-                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Apellido" Required="true" RequiredError="El campo de apellido es requerido..." />
-                            </MudItem>
-
-                            <MudItem xs="12" sm="6" md="6">
-                                <label>Ingrese el nombre del estudiante:</label>
-                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Nombre" Required="true" RequiredError="El campo de nombre es requerido..." />
+                                <MudTextField Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Apellido" Required="true" RequiredError="El campo de apellido es requerido..." />
                             </MudItem>
 
                             <MudItem xs="12" sm="6" md="6">
@@ -37,17 +32,17 @@
 
                             <MudItem xs="12" sm="6" md="6">
                                 <label>Ingrese la carrera del estudiante:</label>
-                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Carrera" Required="true" RequiredError="El campo de carrera es requerido..." />
+                                <MudTextField Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Carrera" Required="true" RequiredError="El campo de carrera es requerido..." />
                             </MudItem>
 
                             <MudItem xs="12" sm="6" md="6">
                                 <label>Ingrese la condicion del estudiante:</label>
-                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Condicion" Required="true" RequiredError="El campo de condicion es requerido..." />
+                                <MudTextField Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Condicion" Required="true" RequiredError="El campo de condicion es requerido..." />
                             </MudItem>
 
                             <MudItem xs="12" sm="6" md="6">
                                 <label>Ingrese la beca del estudiante:</label>
-                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Beca" Required="true" RequiredError="El campo de beca es requerido..." />
+                                <MudTextField Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Beca" Required="true" RequiredError="El campo de beca es requerido..." />
                             </MudItem>
 
                             <MudItem xs="12" Style="display:flex; justify-content:center;">
