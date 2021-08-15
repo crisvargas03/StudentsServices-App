@@ -1,0 +1,67 @@
+@page "/CRUD_Estudiantes/Estudiantes"
+@using Sistema_Estudiantil.Models
+
+<!--Injects for Datatable-->
+@inject IJSRuntime JSRuntime
+@implements IDisposable
+
+<MudCard Style="margin:25px;">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <h2 class="text-center mt-5"><strong>Estudiantes Registrados</strong></h2>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudIconButton Link="/CRUD_Estudiantes/C_Estudiante" Icon="@Icons.Material.Filled.NoteAdd" Color="Color.Primary" />
+        </CardHeaderActions>
+
+    </MudCardHeader>
+    <MudCardContent>
+        <table class="table table-bordered" id="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Matricula</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Edad</th>
+                    <th>Carrera</th>
+                    <th>Condicion</th>
+                    <th>Beca</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var est in GetEstudiantes())
+                {
+                    <tr>
+                        <td>@est.Matricula</td>
+                        <td>@est.Nombre</td>
+                        <td>@est.Apellido</td>
+                        <td>@est.Edad</td>
+                        <td>@est.Carrera</td>
+                        <td>@est.Condicion</td>
+                        <td>@est.Beca</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </MudCardContent>
+    <MudCardActions>
+       <MudButton StartIcon="@Icons.Material.Filled.Edit" Link="/CRUD_Estudiantes/U_Estudiante" Variant="Variant.Text" Color="Color.Info">Editar</MudButton>
+        <MudButton StartIcon="@Icons.Material.Filled.Delete" Link="/CRUD_Estudiantes/D_Estudiante" Variant="Variant.Text" Color="Color.Error">Eliminar</MudButton>
+    </MudCardActions>
+
+</MudCard>
+
+@code{
+    List<Estudiante> GetEstudiantes() => new ProgramaEstudiantilDBContext().Estudiante.ToList();
+
+    //Methods for the funcionality of Datatable
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JSRuntime.InvokeAsync<object>("TestDataTablesAdd", "#table");
+    }
+    void IDisposable.Dispose()
+    {
+        JSRuntime.InvokeAsync<object>("TestDataTablesRemove", "#table");
+    }
+
+}
