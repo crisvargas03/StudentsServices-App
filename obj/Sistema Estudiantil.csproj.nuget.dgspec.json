@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj": {}
+    "C:\\Users\\Laura Cabral\\OneDrive\\Desktop\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj": {}
   },
   "projects": {
-    "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj": {
+    "C:\\Users\\Laura Cabral\\OneDrive\\Desktop\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj",
+        "projectUniqueName": "C:\\Users\\Laura Cabral\\OneDrive\\Desktop\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj",
         "projectName": "Sistema Estudiantil",
-        "projectPath": "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj",
-        "packagesPath": "C:\\Users\\civar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\civar\\Desktop\\Tarea\\Introduccion a Ingenieria\\Intro_Ingenieria_G5\\obj\\",
+        "projectPath": "C:\\Users\\Laura Cabral\\OneDrive\\Desktop\\Intro_Ingenieria_G5\\Sistema Estudiantil.csproj",
+        "packagesPath": "C:\\Users\\Laura Cabral\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Laura Cabral\\OneDrive\\Desktop\\Intro_Ingenieria_G5\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\civar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Laura Cabral\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -85,7 +85,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

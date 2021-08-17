@@ -1,1 +1,134 @@
- @*Tienen que fijarse en cuando copien los cogidos, para que no dejen cosas del otro CRUD.*@
+@page "/CRUD_Estudiantes/D_Estudiante"
+@using Sistema_Estudiantil.Models
+
+@*<h2>Eliminar Estudiante</h2>
+
+<p>Ingrese el codigo de la Materia: <input type="number" @bind-value="materia.MateriaId"></p>
+<button class="btn btn-primary" @onclick="DeleteMateria">Eliminar</button>
+@Mensaje*@
+
+<MudCard Style="margin:30px;">
+    <MudCardContent>
+        <MudIconButton Link="/CRUD_Estudiantes/Estudiantes" Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Primary" />
+        <h2 class="text-center"><strong>Eliminar Estudiante</strong></h2>
+        <MudGrid Class="mt-3">
+            <MudExpansionPanel Class="bg-light" Text="Formulario para eliminar el estudiante">
+                <MudForm @ref="form" @bind-IsValid="success" @bind-Errors="errors">
+                    <MudGrid Class="mt-3">
+                        <MudItem xs="12">
+                            <label>Ingrese la matricula del estudiante:</label>
+                            <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Matricula" />
+                        </MudItem>
+                        <MudItem xs="12" Style="display:flex; justify-content:center;">
+                            <MudButton Variant="Variant.Filled" Color="Color.Error" Disabled="@(!success)" @onclick="DeleteEstudiante" EndIcon="@Icons.Filled.DeleteForever">Eliminar</MudButton>
+                        </MudItem>
+                    </MudGrid>
+                </MudForm>
+            </MudExpansionPanel>
+        </MudGrid>
+    </MudCardContent>
+</MudCard>
+
+@if (showErrorAlert)
+{
+    <MudAlert Style="margin-bottom:25px;"
+              Severity="Severity.Error"
+              Variant="Variant.Filled"
+              AlertTextPosition="AlertTextPosition.Center"
+              ShowCloseIcon="true"
+              CloseIconClicked="(() => CloseMe(false))">
+        Debe llenar el campo de la matricula del estudiante...
+    </MudAlert>
+}
+
+@if (showErrorNotFoundAlert)
+{
+    <MudAlert Style="margin-bottom:25px;"
+              Severity="Severity.Error"
+              Variant="Variant.Filled"
+              AlertTextPosition="AlertTextPosition.Center"
+              ShowCloseIcon="true"
+              CloseIconClicked="(() => CloseMe(false))">
+        La matricula no fue encontrada...
+    </MudAlert>
+}
+
+@if (showSuccessfulAlert)
+{
+    <MudAlert Style="margin-bottom:25px;"
+              Severity="Severity.Success"
+              Variant="Variant.Filled"
+              AlertTextPosition="AlertTextPosition.Center"
+              ShowCloseIcon="true"
+              CloseIconClicked="(() => CloseMe(false))">
+        El estudiante fue eliminado correctamente...
+    </MudAlert>
+}
+
+
+
+@code{
+    bool success;
+    string[] errors = { };
+    MudTextField<string> pwField1;
+    MudForm form;
+
+    //Mostrar el formulario de editar, cuando el id sea encontrado
+    bool showErrorAlert = false;
+    bool showErrorNotFoundAlert = false;
+    bool showSuccessfulAlert = false;
+
+    private void CloseMe(bool value)
+    {
+        if (value)
+        {
+            showErrorAlert = false;
+            showErrorNotFoundAlert = false;
+            showSuccessfulAlert = false;
+        }
+        else
+        {
+            showErrorAlert = false;
+            showErrorNotFoundAlert = false;
+            showSuccessfulAlert = false;
+        }
+    }
+
+    bool exists;
+    string Mensaje;
+    Estudiante estudiante = new Estudiante();
+    List<Estudiante> GetEstudiantes() => new ProgramaEstudiantilDBContext().Estudiante.Where(x => x.Matricula == estudiante.Matricula).ToList();
+    void DeleteEstudiante()
+    {
+        using (ProgramaEstudiantilDBContext cmd_Delete = new ProgramaEstudiantilDBContext())
+        {
+            if (estudiante.Matricula == 0)
+            {
+                showErrorNotFoundAlert = false;
+                showErrorAlert = true;
+                Mensaje = "Debe llenar el campo matricula";
+            }
+            else
+            {
+                foreach (var item in @GetEstudiantes())
+                {
+                    exists = true;
+                }
+                if (exists == true)
+                {
+                    cmd_Delete.Remove(estudiante);
+                    cmd_Delete.SaveChanges();
+                    showSuccessfulAlert = true;
+                    Mensaje = "Estudiante eliminado!";
+                }
+                else
+                {
+                    Mensaje = "Matricula no encontrada!";
+                    showErrorAlert = false;
+                    showErrorNotFoundAlert = true;
+                }
+            }
+        }
+        estudiante.Matricula = 0;
+    }
+}

@@ -1,1 +1,143 @@
- @*Tienen que fijarse en cuando copien los cogidos, para que no dejen cosas del otro CRUD.*@
+@page "/CRUD_Estudiantes/U_Estudiante"
+@using Sistema_Estudiantil.Models
+
+<MudCard Style="margin:25px;">
+    <MudCardContent>
+        @*Tienen que fijarse en cuando copien los cogidos, para que no dejen cosas del otro CRUD.*@
+        <MudIconButton Link="/CRUD_Estudiantes/Estudiantes" Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Primary" />
+
+        <h2 class="text-center"><strong>Editar informacion de Estudiante</strong></h2>
+        <MudCard Style="background-color:lightgrey;" Class="mt-3">
+            <MudCardContent>
+                <MudExpansionPanel Text="Formulario">
+                    <MudForm @ref="form" @bind-IsValid="success" @bind-Errors="errors">
+                        <MudGrid Class="mt-3">
+                            <MudItem xs="12" sm="6" md="6">
+                                <label>Ingrese la matricla del estudiante:</label>
+                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Matricula" Required="true" RequiredError="El campo de matricula es requerido..." />
+                            </MudItem>
+                            <MudItem xs="12" sm="6" md="6">
+                                <label>Ingrese el nombre del estudiante:</label>
+                                <MudTextField Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Nombre" Required="true" RequiredError="El campo de nombre es requerido..." />
+                            </MudItem>
+
+                            <MudItem xs="12" sm="6" md="6">
+                                <label>Ingrese el apellido del estudiante:</label>
+                                <MudTextField Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Apellido" Required="true" RequiredError="El campo de apellido es requerido..." />
+                            </MudItem>
+
+                            <MudItem xs="12" sm="6" md="6">
+                                <label>Ingrese la edad del estudiante:</label>
+                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Edad" Required="true" RequiredError="El campo de edad es requerido..." />
+                            </MudItem>
+
+                            <MudItem xs="12" sm="6" md="6">
+                                <label>Ingrese la carrera del estudiante:</label>
+                                <MudTextField Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Carrera" Required="true" RequiredError="El campo de carrera es requerido..." />
+                            </MudItem>
+
+                            @*Aqui estaba el error del tipo, en vez de string es Long*@
+                            <MudItem xs="12" sm="6" md="6">
+                                <label>Ingrese la condicion del estudiante:</label>
+                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Condicion" Required="true" RequiredError="El campo de condicion es requerido..." />
+                            </MudItem>
+
+                            @*Aqui estaba el error del tipo, en vez de string es Long*@
+                            <MudItem xs="12" sm="6" md="6">
+                                <label>Ingrese la beca del estudiante:</label>
+                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Beca" Required="true" RequiredError="El campo de beca es requerido..." />
+                            </MudItem>
+
+                            <MudItem xs="12" Style="display:flex; justify-content:center;">
+                                <MudButton Variant="Variant.Filled" Color="Color.Success" Disabled="@(!success)" @onclick="CreateEstudiante" EndIcon="@Icons.Filled.Save">Editar</MudButton>
+                            </MudItem>
+                        </MudGrid>
+                    </MudForm>
+                </MudExpansionPanel>
+            </MudCardContent>
+        </MudCard>
+
+        @if (showCallAlert)
+        {
+            <MudAlert Class="mt-5" Severity="Severity.Success" AlertTextPosition="AlertTextPosition.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(false))">Informacion editada de manera correcta
+                
+            </MudAlert>
+        }
+
+        <MudExpansionPanel Style="background-color:lightblue;" Text="Errores del formulario" Class="mt-5">
+            @if (errors.Length == 0)
+            {
+                <MudAlert Style="background-color:white;" Severity="Severity.Info" AlertTextPosition="AlertTextPosition.Center">No hay ningun error en el formulario...</MudAlert>
+            }
+            @if (!success)
+            {
+                @foreach (var error in errors)
+                {
+                    <MudAlert Style="background-color:red; color:white;" Severity="Severity.Error" AlertTextPosition="AlertTextPosition.Center">@error</MudAlert>
+                }
+            }
+        </MudExpansionPanel>
+    </MudCardContent>
+</MudCard>
+
+
+
+@code{
+    bool success;
+    string[] errors = { };
+    MudTextField<string> pwField1;
+    MudForm form;
+
+    Estudiante estudiante = new Estudiante();
+    ProgramaEstudiantilDBContext context = new ProgramaEstudiantilDBContext();
+    List<Estudiante> getMaterias() => new ProgramaEstudiantilDBContext().Estudiante.Where(X => X.Matricula == estudiante.Matricula).ToList();
+
+    void CreateEstudiante()
+    {
+        var estudianteUpdated = context.Estudiante.FirstOrDefault(x => x.Matricula == estudiante.Matricula);
+        estudianteUpdated.Matricula = estudiante.Matricula;
+        estudianteUpdated.Nombre = estudiante.Nombre;
+        estudianteUpdated.Apellido = estudiante.Apellido;
+        estudianteUpdated.Edad = estudiante.Edad;
+        estudianteUpdated.Carrera = estudiante.Carrera;
+        estudianteUpdated.Condicion = estudiante.Condicion;
+        estudianteUpdated.Beca= estudiante.Beca;
+        context.SaveChanges();
+        ShowAlert();
+
+
+
+        using (ProgramaEstudiantilDBContext cmd_Update = new ProgramaEstudiantilDBContext())
+        {
+            cmd_Update.Update(estudiante);
+            cmd_Update.SaveChanges();
+            ShowAlert();
+        }
+
+    }
+
+    //Close the alerts variables
+    private bool showCallAlert = false;
+    private bool showLeaveAlert = false;
+    private bool errorAlert = false;
+
+    //Method for closing the alert
+    private void CloseMe(bool value)
+    {
+        if (value)
+        {
+            showLeaveAlert = false;
+        }
+        else
+        {
+            showCallAlert = false;
+        }
+    }
+
+    //ShowAlert
+    private void ShowAlert()
+    {
+        showCallAlert = true;
+        showLeaveAlert = true;
+    }
+}
