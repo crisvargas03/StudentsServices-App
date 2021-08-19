@@ -1,0 +1,82 @@
+@page "/Calificaciones/CalificarEstudiantes"
+@using Sistema_Estudiantil.Models
+
+<h2>Calificar</h2>
+
+<table class="table">
+    <tr>
+        <td>Seleccione el estudiante:</td>
+        <td>
+            <select class="form-control col-sm-8" name="Estudiantes" @bind="@report.EstudianteId">
+                <option>Eliga un estudiante</option>
+                @foreach (var item in GetEstudiantes())
+                {
+                    <option value="@item.Matricula">@item.Nombre @item.Apellido </option>
+                }
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Seleccione la materia:</td>
+        <td>
+            <select class="form-control col-sm-8" name="Materia" @bind="@report.MateriaId">
+                <option>Eliga un estudiante</option>
+                @foreach (var item in GetMaterias())
+                {
+                    <option value="@item.MateriaId">@item.Nombre</option>
+                }
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Cuatrimestre: </td>
+        <td><input type="text" class="form-control col-sm-4" @bind="@report.Cuatrimestre"></td>
+    </tr>
+    <tr>
+        <td>Calificacion de la Materia: </td>
+        <td><input type="num" class="form-control col-sm-4" @bind="@report.Calificacion"></td>
+    </tr>
+</table>
+<center>
+    <strong>@Mensaje</strong>
+    <br>
+    <br>
+    <button class="btn btn-primary" style="background-color:#00C738" @onclick="createReport"> 
+        <span class="oi oi-plus" aria-hidden="true"></span> Agregar Cliente
+    </button>
+    <br>
+    <br>
+</center>
+
+
+@code{
+    string Mensaje;
+    ReporteCalificacion report = new ReporteCalificacion();
+    List<Materia> GetMaterias() => new ProgramaEstudiantilDBContext().Materia.ToList();
+    List<Estudiante> GetEstudiantes() => new ProgramaEstudiantilDBContext().Estudiante.ToList();
+
+    void createReport(){
+        //---------------obtener el ultimo registro--------------------------
+        List<ReporteCalificacion> getUltimoId() => new ProgramaEstudiantilDBContext().ReporteCalificacion.OrderByDescending(x => x.ReporteCalificacionId).Take(1).ToList();
+
+        foreach (var i in getUltimoId())
+        {
+            report.ReporteCalificacionId = Convert.ToInt32(i.ReporteCalificacionId + 1);
+        }
+        //----------------------Fin----------------------------
+
+        if (report.EstudianteId == null || report.MateriaId == null || report.Cuatrimestre == null || report.Calificacion == 0)
+        {
+            Mensaje = "Existen Campos vacios...";
+        }
+        else
+        {
+            using (ProgramaEstudiantilDBContext cmd = new ProgramaEstudiantilDBContext())
+            {
+                cmd.Add(report);
+                cmd.SaveChanges();
+                Mensaje = "Reporte de Calificacion creado exitosamente!";
+            }
+        }
+    }
+}

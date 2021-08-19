@@ -1,4 +1,4 @@
 ﻿<StaticWebAssets Version="1.0">
-  <ContentRoot BasePath="_content/MudBlazor" Path="C:\Users\Laura Cabral\.nuget\packages\mudblazor\5.1.0\build\..\staticwebassets\" />
-  <ContentRoot BasePath="/" Path="C:\Users\Laura Cabral\OneDrive\Desktop\Intro_Ingenieria_G5\obj\Debug\net5.0\scopedcss\bundle\" />
+  <ContentRoot BasePath="_content/MudBlazor" Path="C:\Users\civar\.nuget\packages\mudblazor\5.1.0\build\..\staticwebassets\" />
+  <ContentRoot BasePath="/" Path="C:\Users\civar\Desktop\Tarea\Introduccion a Ingenieria\Intro_Ingenieria_G5\obj\Debug\net5.0\scopedcss\bundle\" />
 </StaticWebAssets>

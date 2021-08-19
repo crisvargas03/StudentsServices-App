@@ -742,3 +742,7 @@ C:\Users\Laura Cabral\OneDrive\Desktop\Intro_Ingenieria_G5\obj\Debug\net5.0\Sist
 C:\Users\Laura Cabral\OneDrive\Desktop\Intro_Ingenieria_G5\obj\Debug\net5.0\Sistema Estudiantil.dll
 C:\Users\Laura Cabral\OneDrive\Desktop\Intro_Ingenieria_G5\obj\Debug\net5.0\ref\Sistema Estudiantil.dll
 C:\Users\Laura Cabral\OneDrive\Desktop\Intro_Ingenieria_G5\obj\Debug\net5.0\Sistema Estudiantil.genruntimeconfig.cache
+C:\Users\civar\Desktop\Tarea\Introduccion a Ingenieria\Intro_Ingenieria_G5\obj\Debug\net5.0\RazorDeclaration\Pages\Calificaciones\CalificarEstudiente.razor.g.cs
+C:\Users\civar\Desktop\Tarea\Introduccion a Ingenieria\Intro_Ingenieria_G5\obj\Debug\net5.0\Razor\Pages\Calificaciones\CalificarEstudiente.razor.g.cs
+C:\Users\civar\Desktop\Tarea\Introduccion a Ingenieria\Intro_Ingenieria_G5\obj\Debug\net5.0\RazorDeclaration\Pages\Calificaciones\VerCalificaciones.razor.g.cs
+C:\Users\civar\Desktop\Tarea\Introduccion a Ingenieria\Intro_Ingenieria_G5\obj\Debug\net5.0\Razor\Pages\Calificaciones\VerCalificaciones.razor.g.cs

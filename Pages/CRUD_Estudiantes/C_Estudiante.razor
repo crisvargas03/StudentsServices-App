@@ -90,14 +90,14 @@
 
     void CreateEstudiante()
     {
-        //---------------obtener el ultimo registro--------------------------
+        /*---------------obtener el ultimo registro--------------------------
         List<Estudiante> getUltimoId() => new ProgramaEstudiantilDBContext().Estudiante.OrderByDescending(x => x.Matricula).Take(1).ToList();
 
         foreach (var i in getUltimoId())
         {
             estudiante.Matricula = Convert.ToInt32(i.Matricula + 1);
         }
-        //----------------------Fin----------------------------
+        //----------------------Fin----------------------------*/
 
         using (ProgramaEstudiantilDBContext cmd_Insert = new ProgramaEstudiantilDBContext())
         {

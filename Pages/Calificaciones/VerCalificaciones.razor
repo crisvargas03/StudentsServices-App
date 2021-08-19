@@ -1,0 +1,31 @@
+@page "/Calificaciones/VerCalificaciones"
+@using Sistema_Estudiantil.Models
+
+<h2>Calificaciones Realizadas</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID Reporte</th>
+            <th>Matricula del Estudiante</th>
+            <th>Id Materia</th>
+            <th>Cuatrimestre</th>
+            <th>Calificacion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in getReports())
+        {
+            <tr>
+                <th>@item.ReporteCalificacionId</th>
+                <th>@item.EstudianteId</th>
+                <th>@item.MateriaId</th>
+                <th>@item.Cuatrimestre</th>
+                <th>@item.Calificacion</th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code{
+    List<ReporteCalificacion> getReports() => new ProgramaEstudiantilDBContext().ReporteCalificacion.ToList();
+}
