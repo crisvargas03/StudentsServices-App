@@ -1,61 +1,110 @@
 @page "/Calificaciones/CalificarEstudiantes"
 @using Sistema_Estudiantil.Models
 
-<h2>Calificar</h2>
+<MudCard Style="margin:25px;">
+    <MudCardContent>
+        <MudIconButton Link="/Calificaciones/VerCalificaciones" Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Info" />
+        <h2 class="text-center"><strong>Calificar Estudiante</strong></h2>
+        <MudCard Style="background-color:lightgrey;" Class="mt-3">
+            <MudCardContent>
+                <MudExpansionPanel Text="Formulario">
+                    <MudForm @ref="form" @bind-IsValid="success" @bind-Errors="errors">
+                        <MudGrid Class="mt-3">
+                            <MudItem xs="12" sm="6" md="6">
+                                <label>Seleccione el estudiante:</label>
+                                <MudSelect Label="Estudiante" @bind-Value="report.EstudianteId" Variant="Variant.Outlined" HelperText="Estudiante"
+                                           OffsetY="true" OpenIcon="@Icons.Material.Filled.Person" AdornmentColor="Color.Secondary"
+                                           Required="true" RequiredError="El campo de estudiante es requerido...">
+                                    @foreach (var item in GetEstudiantes())
+                                    {
+                                        <MudSelectItem Value="@item.Matricula">@item.Nombre @item.Apellido</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem xs="12" sm="6" md="6">
+                                <label>Seleccione la materia:</label>
+                                <MudSelect Label="Materia" @bind-Value="report.MateriaId" Variant="Variant.Outlined" HelperText="Materia"
+                                           OffsetY="true" OpenIcon="@Icons.Material.Filled.NoteAlt" AdornmentColor="Color.Secondary"
+                                           Required="true" RequiredError="El campo de materia es requerido...">
+                                    @foreach (var item in GetMaterias())
+                                    {
+                                        <MudSelectItem Value="@item.MateriaId">@item.Nombre</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem xs="12" sm="6" md="6">
+                                <label>Seleccione el cuatrimestre:</label>
+                                <MudTextField Label="Cuatrimestre" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.CalendarToday" AdornmentColor="Color.Secondary" T="string" @bind-Value="@report.Cuatrimestre" Required="true" RequiredError="El campo de cuatrimestre es requerido..." />
+                            </MudItem>
+                            <MudItem xs="12" sm="6" md="6">
+                                <label>Calificacion de la Materia:</label>
+                                <MudTextField Label="Materia" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.EventNote" AdornmentColor="Color.Secondary" T="long" @bind-Value="@report.Calificacion" Required="true" RequiredError="El campo de calificar estudiante es requerido..." />
+                            </MudItem>
+                            <MudItem xs="12" Style="display:flex; justify-content:center;">
+                                <MudButton Variant="Variant.Filled" Color="Color.Success" Disabled="@(!success)" @onclick="createReport" EndIcon="@Icons.Filled.Save">Agregar calificacion</MudButton>
+                            </MudItem>
+                        </MudGrid>
+                    </MudForm>
+                </MudExpansionPanel>
+            </MudCardContent>
+        </MudCard>
 
-<table class="table">
-    <tr>
-        <td>Seleccione el estudiante:</td>
-        <td>
-            <select class="form-control col-sm-8" name="Estudiantes" @bind="@report.EstudianteId">
-                <option>Eliga un estudiante</option>
-                @foreach (var item in GetEstudiantes())
-                {
-                    <option value="@item.Matricula">@item.Nombre @item.Apellido </option>
-                }
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <td>Seleccione la materia:</td>
-        <td>
-            <select class="form-control col-sm-8" name="Materia" @bind="@report.MateriaId">
-                <option>Eliga un estudiante</option>
-                @foreach (var item in GetMaterias())
-                {
-                    <option value="@item.MateriaId">@item.Nombre</option>
-                }
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <td>Cuatrimestre: </td>
-        <td><input type="text" class="form-control col-sm-4" @bind="@report.Cuatrimestre"></td>
-    </tr>
-    <tr>
-        <td>Calificacion de la Materia: </td>
-        <td><input type="num" class="form-control col-sm-4" @bind="@report.Calificacion"></td>
-    </tr>
-</table>
-<center>
-    <strong>@Mensaje</strong>
-    <br>
-    <br>
-    <button class="btn btn-primary" style="background-color:#00C738" @onclick="createReport"> 
-        <span class="oi oi-plus" aria-hidden="true"></span> Agregar Cliente
-    </button>
-    <br>
-    <br>
-</center>
+        @if (showCallAlert)
+        {
+            <MudAlert Class="mt-5" Severity="Severity.Success" AlertTextPosition="AlertTextPosition.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(false))">Calificacion agregada de forma correcta</MudAlert>
+        }
 
+        @if (showErrorAlert)
+        {
+            <MudAlert Class="mt-5" Severity="Severity.Error" AlertTextPosition="AlertTextPosition.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(false))">Error al agregar la calificacion</MudAlert>
+        }
+
+    </MudCardContent>
+</MudCard>
 
 @code{
+    bool success;
+    string[] errors = { };
+    MudTextField<string> pwField1;
+    MudForm form;
+
+    //Close the alerts variables
+    private bool showCallAlert = false;
+    private bool showLeaveAlert = false;
+    private bool errorAlert = false;
+    private bool showErrorAlert = false;
+
+    //Method for closing the alert
+    private void CloseMe(bool value)
+    {
+        if (value)
+        {
+            showLeaveAlert = false;
+            showErrorAlert = false;
+        }
+        else
+        {
+            showCallAlert = false;
+            showErrorAlert = false;
+        }
+    }
+
+    //ShowAlert
+    private void ShowAlert()
+    {
+        showCallAlert = true;
+        showLeaveAlert = true;
+        showErrorAlert = false;
+    }
+
+
     string Mensaje;
     ReporteCalificacion report = new ReporteCalificacion();
     List<Materia> GetMaterias() => new ProgramaEstudiantilDBContext().Materia.ToList();
     List<Estudiante> GetEstudiantes() => new ProgramaEstudiantilDBContext().Estudiante.ToList();
 
-    void createReport(){
+    void createReport()
+    {
         //---------------obtener el ultimo registro--------------------------
         List<ReporteCalificacion> getUltimoId() => new ProgramaEstudiantilDBContext().ReporteCalificacion.OrderByDescending(x => x.ReporteCalificacionId).Take(1).ToList();
 
@@ -65,9 +114,9 @@
         }
         //----------------------Fin----------------------------
 
-        if (report.EstudianteId == null || report.MateriaId == null || report.Cuatrimestre == null || report.Calificacion == 0)
+        if (report.EstudianteId == 0 || report.MateriaId == 0 || report.Cuatrimestre == null || report.Calificacion == 0)
         {
-            Mensaje = "Existen Campos vacios...";
+            showErrorAlert = true;
         }
         else
         {
@@ -75,7 +124,7 @@
             {
                 cmd.Add(report);
                 cmd.SaveChanges();
-                Mensaje = "Reporte de Calificacion creado exitosamente!";
+                ShowAlert();
             }
         }
     }

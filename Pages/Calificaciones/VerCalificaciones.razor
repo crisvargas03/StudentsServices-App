@@ -1,31 +1,57 @@
 @page "/Calificaciones/VerCalificaciones"
 @using Sistema_Estudiantil.Models
 
-<h2>Calificaciones Realizadas</h2>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>ID Reporte</th>
-            <th>Matricula del Estudiante</th>
-            <th>Id Materia</th>
-            <th>Cuatrimestre</th>
-            <th>Calificacion</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in getReports())
-        {
-            <tr>
-                <th>@item.ReporteCalificacionId</th>
-                <th>@item.EstudianteId</th>
-                <th>@item.MateriaId</th>
-                <th>@item.Cuatrimestre</th>
-                <th>@item.Calificacion</th>
-            </tr>
-        }
-    </tbody>
-</table>
+<!--Injects for Datatable-->
+@inject IJSRuntime JSRuntime
+@implements IDisposable
+
+<MudCard Style="margin:35px;">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <h2 style="margin-left:120px;" class="text-center mt-5"><strong>Calificaciones Realizadas</strong></h2>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudButton StartIcon="@Icons.Material.Filled.NoteAdd" Link="/Calificaciones/CalificarEstudiantes" Variant="Variant.Text" Color="Color.Info">Agregar Calificacion</MudButton>
+        </CardHeaderActions>
+    </MudCardHeader>
+    <MudCardContent>
+        <table class="table table-bordered table-hover" id="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID Reporte</th>
+                    <th>Matricula del Estudiante</th>
+                    <th>Id Materia</th>
+                    <th>Cuatrimestre</th>
+                    <th>Calificacion</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in getReports())
+                {
+                    <tr>
+                        <td>@item.ReporteCalificacionId</td>
+                        <td>@item.EstudianteId</td>
+                        <td>@item.MateriaId</td>
+                        <td>@item.Cuatrimestre</td>
+                        <td>@item.Calificacion</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </MudCardContent>
+</MudCard>
+
 
 @code{
     List<ReporteCalificacion> getReports() => new ProgramaEstudiantilDBContext().ReporteCalificacion.ToList();
+
+    //Methods for the funcionality of Datatable
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JSRuntime.InvokeAsync<object>("TestDataTablesAdd", "#table");
+    }
+    void IDisposable.Dispose()
+    {
+        JSRuntime.InvokeAsync<object>("TestDataTablesRemove", "#table");
+    }
 }
