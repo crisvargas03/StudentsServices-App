@@ -14,38 +14,59 @@
                         <MudGrid Class="mt-3">
                             <MudItem xs="12" sm="6" md="6">
                                 <label>Ingrese la matricla del estudiante:</label>
-                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Matricula" Required="true" RequiredError="El campo de matricula es requerido..." />
+                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Matricula" 
+                                              Required="true" RequiredError="El campo de matricula es requerido..." 
+                                              AdornmentIcon="@Icons.Filled.VpnKey" AdornmentColor="Color.Info" Adornment="Adornment.End"/>
                             </MudItem>
                             <MudItem xs="12" sm="6" md="6">
                                 <label>Ingrese el nombre del estudiante:</label>
-                                <MudTextField Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Nombre" Required="true" RequiredError="El campo de nombre es requerido..." />
+                                <MudTextField Label="Nombre" Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Nombre" 
+                                              Required="true" RequiredError="El campo de nombre es requerido..." 
+                                              AdornmentIcon="@Icons.Filled.PersonAddAlt1" AdornmentColor="Color.Info" Adornment="Adornment.End" />
                             </MudItem>
 
                             <MudItem xs="12" sm="6" md="6">
                                 <label>Ingrese el apellido del estudiante:</label>
-                                <MudTextField Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Apellido" Required="true" RequiredError="El campo de apellido es requerido..." />
+                                <MudTextField Label="Apellido" Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Apellido" 
+                                              Required="true" RequiredError="El campo de apellido es requerido..." 
+                                              AdornmentIcon="@Icons.Filled.PersonPin" AdornmentColor="Color.Info" Adornment="Adornment.End"/>
                             </MudItem>
 
                             <MudItem xs="12" sm="6" md="6">
                                 <label>Ingrese la edad del estudiante:</label>
-                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Edad" Required="true" RequiredError="El campo de edad es requerido..." />
+                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Edad" 
+                                              Required="true" RequiredError="El campo de edad es requerido..." 
+                                              AdornmentIcon="@Icons.Filled.PermContactCalendar" AdornmentColor="Color.Info" Adornment="Adornment.End" />
                             </MudItem>
 
                             <MudItem xs="12" sm="6" md="6">
-                                <label>Ingrese la carrera del estudiante:</label>
-                                <MudTextField Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Carrera" Required="true" RequiredError="El campo de carrera es requerido..." />
+                                <label>Seleccione la carrera del estudiante:</label>
+                                <MudSelect Label="Carrera del estudiante" @bind-Value="estudiante.Carrera" Variant="Variant.Outlined" HelperText="Carrera del estudiante"
+                                           OffsetY="true" OpenIcon="@Icons.Material.Filled.Note" T="string" AdornmentColor="Color.Info"
+                                           Required="true" RequiredError="El campo de carrera del estudiante es requerido...">
+                                    <MudSelectItem Value="@("Software")" />
+                                    <MudSelectItem Value="@("Redes de Información")" />
+                                    <MudSelectItem Value="@("Seguridad Informática")" />
+                                    <MudSelectItem Value="@("Multimedia")" />
+                                    <MudSelectItem Value="@("Sonido")" />
+                                    <MudSelectItem Value="@("Mecatrónica")" />
+                                    <MudSelectItem Value="@("Manufactura Automatizada")" />
+                                    <MudSelectItem Value="@("Diseño Industrial")" />
+                                    <MudSelectItem Value="@("Inteligencia Artificial")" />
+                                    <MudSelectItem Value="@("Telecomunicaciones")" />
+                                    <MudSelectItem Value="@("Analítica y Ciencia de los Datos")" />
+                                    <MudSelectItem Value="@("Informática Forense")" />
+                                    <MudSelectItem Value="@("Energías Renovables")" />
+                                    <MudSelectItem Value="@("Simulaciones Interactivas y Videojuegos")" />
+                                </MudSelect>
                             </MudItem>
 
-                            @*Aqui estaba el error del tipo, en vez de string es Long*@
                             <MudItem xs="12" sm="6" md="6">
-                                <label>Ingrese la condicion del estudiante:</label>
-                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Condicion" Required="true" RequiredError="El campo de condicion es requerido..." />
-                            </MudItem>
-
-                            @*Aqui estaba el error del tipo, en vez de string es Long*@
-                            <MudItem xs="12" sm="6" md="6">
-                                <label>Ingrese la beca del estudiante:</label>
-                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Beca" Required="true" RequiredError="El campo de beca es requerido..." />
+                                <label>¿El estudiante está becado?</label>
+                                <MudRadioGroup @bind-SelectedOption="estudiante.Beca">
+                                    <MudRadio Option="selectOne" Color="Color.Primary">Si</MudRadio>
+                                    <MudRadio Option="selectCero" Color="Color.Secondary">No</MudRadio>
+                                </MudRadioGroup>
                             </MudItem>
 
                             <MudItem xs="12" Style="display:flex; justify-content:center;">
@@ -71,7 +92,7 @@
             {
                 @foreach (var error in errors)
                 {
-                    <MudAlert Style="background-color:red; color:white;" Severity="Severity.Error" AlertTextPosition="AlertTextPosition.Center">@error</MudAlert>
+                    <MudAlert Style="background-color:red; color:white; margin-top:10px;" Severity="Severity.Error" AlertTextPosition="AlertTextPosition.Center">@error</MudAlert>
                 }
             }
         </MudExpansionPanel>
@@ -85,6 +106,9 @@
     string[] errors = { };
     MudTextField<string> pwField1;
     MudForm form;
+
+    long selectCero;
+    long selectOne = 1;
 
     Estudiante estudiante = new Estudiante();
 
@@ -101,6 +125,7 @@
 
         using (ProgramaEstudiantilDBContext cmd_Insert = new ProgramaEstudiantilDBContext())
         {
+            estudiante.Condicion = 1;
             cmd_Insert.Add(estudiante);
             cmd_Insert.SaveChanges();
             ShowAlert();

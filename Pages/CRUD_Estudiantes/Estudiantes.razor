@@ -24,8 +24,7 @@
                     <th>Apellido</th>
                     <th>Edad</th>
                     <th>Carrera</th>
-                    <th>Condicion</th>
-                    <th>Beca</th>
+                    <th>Becado</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,15 +36,14 @@
                         <td>@est.Apellido</td>
                         <td>@est.Edad</td>
                         <td>@est.Carrera</td>
-                        <td>@est.Condicion</td>
-                        <td>@est.Beca</td>
+                        <td>@FormatBeca(est.Beca)</td>
                     </tr>
                 }
             </tbody>
         </table>
     </MudCardContent>
     <MudCardActions>
-       <MudButton StartIcon="@Icons.Material.Filled.Edit" Link="/CRUD_Estudiantes/U_Estudiante" Variant="Variant.Text" Color="Color.Info">Editar</MudButton>
+        <MudButton StartIcon="@Icons.Material.Filled.Edit" Link="/CRUD_Estudiantes/U_Estudiante" Variant="Variant.Text" Color="Color.Info">Editar</MudButton>
         <MudButton StartIcon="@Icons.Material.Filled.Delete" Link="/CRUD_Estudiantes/D_Estudiante" Variant="Variant.Text" Color="Color.Error">Eliminar</MudButton>
     </MudCardActions>
 
@@ -53,6 +51,12 @@
 
 @code{
     List<Estudiante> GetEstudiantes() => new ProgramaEstudiantilDBContext().Estudiante.ToList();
+
+    string FormatBeca(long becado)
+    {
+        string beca = becado == 0 ? "No" : "Si";
+        return beca;
+    }
 
     //Methods for the funcionality of Datatable
     protected override async Task OnAfterRenderAsync(bool firstRender)

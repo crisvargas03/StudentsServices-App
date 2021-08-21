@@ -105,12 +105,15 @@ using Sistema_Estudiantil.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 85 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Intro_Ingenieria_G5\Pages\CRUD_Estudiantes\U_Estudiante.razor"
+#line 106 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Intro_Ingenieria_G5\Pages\CRUD_Estudiantes\U_Estudiante.razor"
       
     bool success;
     string[] errors = { };
     MudTextField<string> pwField1;
     MudForm form;
+
+    long selectCero;
+    long selectOne = 1;
 
     Estudiante estudiante = new Estudiante();
     ProgramaEstudiantilDBContext context = new ProgramaEstudiantilDBContext();

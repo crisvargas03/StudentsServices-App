@@ -109,6 +109,14 @@ using Sistema_Estudiantil.Models;
       
     List<ReporteCalificacion> getReports() => new ProgramaEstudiantilDBContext().ReporteCalificacion.ToList();
 
+    string FormatGrades(long nota)
+    {
+        string calificacion = nota >= 90 && nota <= 100 ? "A" :
+                              nota >= 80 && nota <= 89 ? "B" :
+                              nota >= 70 && nota <= 79 ? "C" : "F";
+        return calificacion;
+    }
+
     //Methods for the funcionality of Datatable
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

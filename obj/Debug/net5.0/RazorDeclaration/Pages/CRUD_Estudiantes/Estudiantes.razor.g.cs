@@ -105,9 +105,15 @@ using Sistema_Estudiantil.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 54 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Intro_Ingenieria_G5\Pages\CRUD_Estudiantes\Estudiantes.razor"
+#line 52 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Intro_Ingenieria_G5\Pages\CRUD_Estudiantes\Estudiantes.razor"
       
     List<Estudiante> GetEstudiantes() => new ProgramaEstudiantilDBContext().Estudiante.ToList();
+
+    string FormatBeca(long becado)
+    {
+        string beca = becado == 0 ? "No" : "Si";
+        return beca;
+    }
 
     //Methods for the funcionality of Datatable
     protected override async Task OnAfterRenderAsync(bool firstRender)
