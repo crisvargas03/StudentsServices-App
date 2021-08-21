@@ -18,6 +18,7 @@
                                               Required="true" RequiredError="El campo de matricula es requerido..."
                                               AdornmentIcon="@Icons.Filled.VpnKey" AdornmentColor="Color.Info" Adornment="Adornment.End" />
                             </MudItem>
+                            <MudButton Variant="Variant.Filled" Color="Color.Success" @onclick="findEstudiante" EndIcon="@Icons.Filled.Search">Buscarr</MudButton>
                             <MudItem xs="12" sm="6" md="6">
                                 <label>Ingrese el nombre del estudiante:</label>
                                 <MudTextField Label="Nombre" Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Nombre"
@@ -112,9 +113,34 @@
     long selectCero;
     long selectOne = 1;
 
+    //Close the alerts variables
+    bool showCallAlert = false;
+    bool showLeaveAlert = false;
+    bool errorAlert = false;
+
+    //Method for closing the alert
+    void CloseMe(bool value)
+    {
+        if (value)
+        {
+            showLeaveAlert = false;
+        }
+        else
+        {
+            showCallAlert = false;
+        }
+    }
+
+    //ShowAlert
+    void ShowAlert()
+    {
+        showCallAlert = true;
+        showLeaveAlert = true;
+    }
+
     Estudiante estudiante = new Estudiante();
     ProgramaEstudiantilDBContext context = new ProgramaEstudiantilDBContext();
-    List<Estudiante> getMaterias() => new ProgramaEstudiantilDBContext().Estudiante.Where(X => X.Matricula == estudiante.Matricula).ToList();
+    List<Estudiante> getEstudiantes() => new ProgramaEstudiantilDBContext().Estudiante.Where(X => X.Matricula == estudiante.Matricula).ToList();
 
     void CreateEstudiante()
     {
@@ -129,39 +155,43 @@
         context.SaveChanges();
         ShowAlert();
 
-
-
         using (ProgramaEstudiantilDBContext cmd_Update = new ProgramaEstudiantilDBContext())
         {
             cmd_Update.Update(estudiante);
             cmd_Update.SaveChanges();
             ShowAlert();
         }
-
     }
-
-    //Close the alerts variables
-    private bool showCallAlert = false;
-    private bool showLeaveAlert = false;
-    private bool errorAlert = false;
-
-    //Method for closing the alert
-    private void CloseMe(bool value)
+    void findEstudiante()
     {
-        if (value)
+        using (ProgramaEstudiantilDBContext Buscar = new ProgramaEstudiantilDBContext())
         {
-            showLeaveAlert = false;
-        }
-        else
-        {
-            showCallAlert = false;
+            if (estudiante.Matricula == 0)
+            {
+                
+            }
+            else
+            {
+                foreach (var item in getEstudiantes())
+                {
+                    bool exists = true;
+                    if (exists)
+                    {
+                        estudiante.Nombre = item.Nombre;
+                        estudiante.Apellido = item.Apellido;
+                        estudiante.Edad = item.Edad;
+                        estudiante.Carrera = item.Carrera;
+                        estudiante.Condicion = item.Condicion;
+                        estudiante.Beca= item.Beca;
+                    }
+                }
+            }
+            if (estudiante.Nombre == null)
+            {
+            
+            }
         }
     }
 
-    //ShowAlert
-    private void ShowAlert()
-    {
-        showCallAlert = true;
-        showLeaveAlert = true;
-    }
+    
 }
