@@ -1,10 +1,10 @@
 @page "/CRUD_Estudiantes/U_Estudiante"
 @using Sistema_Estudiantil.Models
 
-<MudCard Style="margin:25px;">
-    <MudCardContent>
-        @*Tienen que fijarse en cuando copien los cogidos, para que no dejen cosas del otro CRUD.*@
-        <MudIconButton Link="/CRUD_Estudiantes/Estudiantes" Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Primary" />
+<!--<MudCard Style="margin:25px;">
+    <MudCardContent>-->
+@*Tienen que fijarse en cuando copien los cogidos, para que no dejen cosas del otro CRUD.*@
+<!--<MudIconButton Link="/CRUD_Estudiantes/Estudiantes" Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Primary" />
 
         <h2 class="text-center"><strong>Editar informacion de Estudiante</strong></h2>
         <MudCard Style="background-color:lightgrey;" Class="mt-3">
@@ -79,30 +79,123 @@
             </MudCardContent>
         </MudCard>
 
-        @if (showCallAlert)
-        {
-            <MudAlert Class="mt-5" Severity="Severity.Success" AlertTextPosition="AlertTextPosition.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(false))">Informacion editada de manera correcta
-                
-            </MudAlert>
-        }
 
-        <MudExpansionPanel Style="background-color:lightblue;" Text="Errores del formulario" Class="mt-5">
-            @if (errors.Length == 0)
-            {
-                <MudAlert Style="background-color:white;" Severity="Severity.Info" AlertTextPosition="AlertTextPosition.Center">No hay ningun error en el formulario...</MudAlert>
-            }
-            @if (!success)
-            {
-                @foreach (var error in errors)
-                {
-                    <MudAlert Style="background-color:red; color:white; margin-top:10px;" Severity="Severity.Error" AlertTextPosition="AlertTextPosition.Center">@error</MudAlert>
-                }
-            }
-        </MudExpansionPanel>
+    </MudCardContent>
+</MudCard>-->
+
+<MudCard Style="margin:30px;">
+    <MudCardContent>
+        <MudIconButton Link="/CRUD_Estudiantes/Estudiantes" Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Primary" />
+        <h2 class="text-center"><strong>Editar Estudiante</strong></h2>
+        <MudGrid Class="mt-3">
+            <MudItem xs="6">
+                <MudExpansionPanel Class="bg-light" Text="Buscar estudiante a editar">
+                    <MudForm @ref="form" @bind-IsValid="success" @bind-Errors="errors">
+                        <MudGrid Class="mt-3">
+                            <MudItem xs="12" sm="6" md="12">
+                                <label>Ingrese la matricla del estudiante:</label>
+                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Matricula"
+                                              Required="true" RequiredError="El campo de matricula es requerido..."
+                                              AdornmentIcon="@Icons.Filled.VpnKey" AdornmentColor="Color.Info" Adornment="Adornment.End" />
+                            </MudItem>
+                            <MudItem xs="12" Style="display:flex; justify-content:center;">
+                                <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" @onclick="findEstudiante" EndIcon="@Icons.Filled.Search">Buscar</MudButton>
+                            </MudItem>
+                            <MudItem xs="12">
+                                @if (idFinded && showAlert)
+                                {
+                                    <MudAlert ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(false))" Severity="Severity.Success">Registro encontrado de forma correcta...</MudAlert>
+
+                                }
+                                @if (!idFinded && showErrorAlert)
+                                {
+                                    <MudAlert ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(false))" Severity="Severity.Error">El registro no fue encontrado...</MudAlert>
+                                }
+                            </MudItem>
+                        </MudGrid>
+                    </MudForm>
+                </MudExpansionPanel>
+            </MudItem>
+            <MudItem xs="6">
+                <MudExpansionPanel Class="bg-light" Text="Formulario de editar materia">
+                    @if (idFinded)
+                    {
+                        <MudForm @ref="formEdit" @bind-IsValid="successEdit" @bind-Errors="errorsEdit">
+                            <MudGrid Class="mt-3">
+                                <MudItem xs="12" sm="6" md="6">
+                                    <label>Ingrese el nombre del estudiante:</label>
+                                    <MudTextField Label="Nombre" Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Nombre"
+                                                  Required="true" RequiredError="El campo de nombre es requerido..."
+                                                  AdornmentIcon="@Icons.Filled.PersonAddAlt1" AdornmentColor="Color.Info" Adornment="Adornment.End" />
+                                </MudItem>
+
+                                <MudItem xs="12" sm="6" md="6">
+                                    <label>Ingrese el apellido del estudiante:</label>
+                                    <MudTextField Label="Apellido" Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Apellido"
+                                                  Required="true" RequiredError="El campo de apellido es requerido..."
+                                                  AdornmentIcon="@Icons.Filled.PersonPin" AdornmentColor="Color.Info" Adornment="Adornment.End" />
+                                </MudItem>
+
+                                <MudItem xs="12" sm="6" md="6">
+                                    <label>Ingrese la edad del estudiante:</label>
+                                    <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Edad"
+                                                  Required="true" RequiredError="El campo de edad es requerido..."
+                                                  AdornmentIcon="@Icons.Filled.PermContactCalendar" AdornmentColor="Color.Info" Adornment="Adornment.End" />
+                                </MudItem>
+
+                                <MudItem xs="12" sm="6" md="6">
+                                    <label>Seleccione la carrera del estudiante:</label>
+                                    <MudSelect Label="Carrera del estudiante" @bind-Value="estudiante.Carrera" Variant="Variant.Outlined" HelperText="Carrera del estudiante"
+                                               OffsetY="true" OpenIcon="@Icons.Material.Filled.Note" T="string" AdornmentColor="Color.Info"
+                                               Required="true" RequiredError="El campo de carrera del estudiante es requerido...">
+                                        <MudSelectItem Value="@("Software")" />
+                                        <MudSelectItem Value="@("Redes de Informacion")" />
+                                        <MudSelectItem Value="@("Seguridad Informatica")" />
+                                        <MudSelectItem Value="@("Multimedia")" />
+                                        <MudSelectItem Value="@("Sonido")" />
+                                        <MudSelectItem Value="@("Mecatronica")" />
+                                        <MudSelectItem Value="@("Manufactura Automatizada")" />
+                                        <MudSelectItem Value="@("Diseno Industrial")" />
+                                        <MudSelectItem Value="@("Inteligencia Artificial")" />
+                                        <MudSelectItem Value="@("Telecomunicaciones")" />
+                                        <MudSelectItem Value="@("Analitica y Ciencia de los Datos")" />
+                                        <MudSelectItem Value="@("Informatica Forense")" />
+                                        <MudSelectItem Value="@("Energias Renovables")" />
+                                        <MudSelectItem Value="@("Simulaciones Interactivas y Videojuegos")" />
+                                    </MudSelect>
+                                </MudItem>
+
+                                <MudItem xs="12" sm="6" md="6">
+                                    <label>El estudiante esta becado?</label>
+                                    <MudRadioGroup @bind-SelectedOption="estudiante.Beca">
+                                        <MudRadio Option="selectOne" Color="Color.Primary">Si</MudRadio>
+                                        <MudRadio Option="selectCero" Color="Color.Secondary">No</MudRadio>
+                                    </MudRadioGroup>
+                                </MudItem>
+
+                                <MudItem xs="12" Style="display:flex; justify-content:center;">
+                                    <MudButton Variant="Variant.Filled" Color="Color.Success" Disabled="@(!success)" @onclick="CreateEstudiante" EndIcon="@Icons.Filled.Save">Editar</MudButton>
+                                </MudItem>
+                            </MudGrid>
+                        </MudForm>
+                    }
+                </MudExpansionPanel>
+            </MudItem>
+        </MudGrid>
     </MudCardContent>
 </MudCard>
 
-
+@if (showCorrectAlert)
+{
+    <MudAlert Style="margin-bottom:25px;"
+              Severity="Severity.Success"
+              Variant="Variant.Filled"
+              AlertTextPosition="AlertTextPosition.Center"
+              ShowCloseIcon="true"
+              CloseIconClicked="(() => CloseMe(false))">
+        La materia ha sido editada de forma correcta...
+    </MudAlert>
+}
 
 @code{
     bool success;
@@ -110,32 +203,43 @@
     MudTextField<string> pwField1;
     MudForm form;
 
+    bool successEdit;
+    string[] errorsEdit = { };
+    MudTextField<string> pwField2;
+    MudForm formEdit;
+
     long selectCero;
     long selectOne = 1;
 
-    //Close the alerts variables
-    bool showCallAlert = false;
-    bool showLeaveAlert = false;
-    bool errorAlert = false;
+    bool idFinded = false;
+    bool showAlert = false;
+    bool showErrorAlert = false;
+    bool showCorrectAlert = false;
 
-    //Method for closing the alert
-    void CloseMe(bool value)
+    private void CloseMe(bool value)
     {
         if (value)
         {
-            showLeaveAlert = false;
+            showAlert = false;
+            showErrorAlert = false;
+            showCorrectAlert = false;
         }
         else
         {
-            showCallAlert = false;
+            showAlert = false;
+            showErrorAlert = false;
+            showCorrectAlert = false;
         }
     }
 
-    //ShowAlert
-    void ShowAlert()
+    void LimpiarCampos()
     {
-        showCallAlert = true;
-        showLeaveAlert = true;
+        estudiante.Nombre = null;
+        estudiante.Apellido = "";
+        estudiante.Edad = 0;
+        estudiante.Carrera = "";
+        estudiante.Condicion = 0;
+        estudiante.Beca = 0;
     }
 
     Estudiante estudiante = new Estudiante();
@@ -151,24 +255,25 @@
         estudianteUpdated.Edad = estudiante.Edad;
         estudianteUpdated.Carrera = estudiante.Carrera;
         estudianteUpdated.Condicion = estudiante.Condicion;
-        estudianteUpdated.Beca= estudiante.Beca;
+        estudianteUpdated.Beca = estudiante.Beca;
+        showCorrectAlert = true;
         context.SaveChanges();
-        ShowAlert();
 
         using (ProgramaEstudiantilDBContext cmd_Update = new ProgramaEstudiantilDBContext())
         {
             cmd_Update.Update(estudiante);
             cmd_Update.SaveChanges();
-            ShowAlert();
         }
     }
     void findEstudiante()
     {
+        LimpiarCampos();
         using (ProgramaEstudiantilDBContext Buscar = new ProgramaEstudiantilDBContext())
         {
             if (estudiante.Matricula == 0)
             {
-                
+                idFinded = false;
+                showErrorAlert = true;
             }
             else
             {
@@ -177,21 +282,24 @@
                     bool exists = true;
                     if (exists)
                     {
+                        idFinded = true;
+                        showAlert = true;
                         estudiante.Nombre = item.Nombre;
                         estudiante.Apellido = item.Apellido;
                         estudiante.Edad = item.Edad;
                         estudiante.Carrera = item.Carrera;
                         estudiante.Condicion = item.Condicion;
-                        estudiante.Beca= item.Beca;
+                        estudiante.Beca = item.Beca;
                     }
                 }
             }
             if (estudiante.Nombre == null)
             {
-            
+                idFinded = false;
+                showErrorAlert = true;
             }
         }
     }
 
-    
+
 }

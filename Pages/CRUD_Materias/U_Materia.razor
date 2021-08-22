@@ -1,12 +1,6 @@
 @page "/CRUD_Materias/U_Materia"
 @using Sistema_Estudiantil.Models
 
-@*<h2>Editar Materia</h2>
-<p> Ingrese el Codigo de la Materia: <input type="text" @bind-value="materia.MateriaId"><button class="btn btn-primary" @onclick="findMateria">Buscar Materia</button> </p>
-<p>Ingrese el nombre de la Materia: <input type="text" @bind-value="materia.Nombre"></p>
-<p>Ingrese los Creditos de la Materia: <input type="number" @bind-value="materia.Creditos"></p>
-<button class="btn btn-primary" @onclick="updateMateria">Editar Materia</button>*@
-
 <MudCard Style="margin:30px;">
     <MudCardContent>
         <MudIconButton Link="/CRUD_Materias/Materias" Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Primary" />
@@ -124,6 +118,7 @@
 
     void findMateria()
     {
+        materia.Nombre = null; 
         using (ProgramaEstudiantilDBContext Buscar = new ProgramaEstudiantilDBContext())
         {
             if (materia.MateriaId == 0)
