@@ -1,7 +1,23 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+<div class="text-center">
+    <img src="images/student index.png" class="rounded mx-auto d-block" alt="...">
+    <h1 class="title"><strong>Sistema estudiantil</strong></h1>
+</div>
+<div class="text-center">
+    <h4 class="text">
+        Este es un sistema estudiantil, el cual permite administrar y automatizar los diferentes procesos estudiantiles.
+        El mismo contiene diferentes módulos, los cuales son: estudiante, materia y calificaciones.
+    </h4>
+</div>
+<br />
+<br />
+<div class="text-center">
+    <MudContainer>
+        <MudButton Link="/CRUD_Materias/Materias" Variant="Variant.Filled" Size="Size.Large" Color="Color.Primary" Class="ma-2">Materias</MudButton>
+        <MudButton Link="/Calificaciones/VerCalificaciones" Variant="Variant.Filled" Size="Size.Large" Color="Color.Secondary" Class="ma-2">Calificaciones</MudButton>
+        <MudButton Link="/CRUD_Estudiantes/Estudiantes" Variant="Variant.Filled" Size="Size.Large" Color="Color.Info" Class="ma-2">Estudiantes</MudButton>
+    </MudContainer>
+</div>
+<br />

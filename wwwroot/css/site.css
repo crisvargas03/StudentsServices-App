@@ -48,3 +48,13 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+.title {
+    position: absolute;
+    right:470px;
+    top:500px;
+}
+.text {
+    position: absolute;
+    top: 550px;
+}
