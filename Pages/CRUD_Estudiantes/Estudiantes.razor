@@ -11,7 +11,7 @@
             <h2 class="text-center mt-5"><strong>Estudiantes Registrados</strong></h2>
         </CardHeaderContent>
         <CardHeaderActions>
-            <MudIconButton Link="/CRUD_Estudiantes/C_Estudiante" Icon="@Icons.Material.Filled.NoteAdd" Color="Color.Primary" />
+            <MudButton StartIcon="@Icons.Material.Filled.NoteAdd" Link="/CRUD_Estudiantes/C_Estudiante" Variant="Variant.Text" Color="Color.Info">Agregar Estudiante</MudButton>
         </CardHeaderActions>
 
     </MudCardHeader>
@@ -31,7 +31,7 @@
                 @foreach (var est in GetEstudiantes())
                 {
                     <tr>
-                        <td>@est.Matricula</td>
+                        <td>@FormartMatricula(est.Matricula)</td>
                         <td>@est.Nombre</td>
                         <td>@est.Apellido</td>
                         <td>@est.Edad</td>
@@ -51,6 +51,14 @@
 
 @code{
     List<Estudiante> GetEstudiantes() => new ProgramaEstudiantilDBContext().Estudiante.ToList();
+
+    string FormartMatricula(long matricula)
+    {
+        string matri1 = matricula.ToString().Substring(0, 4);
+        string matri2 = matricula.ToString().Substring(4);
+        string matriculaCompleta = matri1 + "-" + matri2;
+        return matriculaCompleta;
+    }
 
     string FormatBeca(long becado)
     {

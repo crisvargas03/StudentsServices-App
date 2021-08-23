@@ -96,6 +96,13 @@ using Sistema_Estudiantil.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Intro_Ingenieria_G5\Pages\Calificaciones\VerCalificaciones.razor"
+using Microsoft.EntityFrameworkCore;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Calificaciones/VerCalificaciones")]
     public partial class VerCalificaciones : Microsoft.AspNetCore.Components.ComponentBase, IDisposable
     {
@@ -105,9 +112,18 @@ using Sistema_Estudiantil.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 45 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Intro_Ingenieria_G5\Pages\Calificaciones\VerCalificaciones.razor"
+#line 52 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Intro_Ingenieria_G5\Pages\Calificaciones\VerCalificaciones.razor"
       
+    private static ProgramaEstudiantilDBContext programaEstudiantilDB = new ProgramaEstudiantilDBContext();
     List<ReporteCalificacion> getReports() => new ProgramaEstudiantilDBContext().ReporteCalificacion.ToList();
+
+    string FormartMatricula(long matricula)
+    {
+        string matri1 = matricula.ToString().Substring(0, 4);
+        string matri2 = matricula.ToString().Substring(4);
+        string matriculaCompleta = matri1 + "-" + matri2;
+        return matriculaCompleta;
+    }
 
     string FormatGrades(long nota)
     {

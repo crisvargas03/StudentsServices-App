@@ -1,5 +1,6 @@
 @page "/Calificaciones/VerCalificaciones"
 @using Sistema_Estudiantil.Models
+@using Microsoft.EntityFrameworkCore
 
 <!--Injects for Datatable-->
 @inject IJSRuntime JSRuntime
@@ -20,22 +21,28 @@
                 <tr>
                     <th>ID Reporte</th>
                     <th>Matricula del Estudiante</th>
-                    <th>Id Materia</th>
+                    <th>Nombre Estudiante</th>
+                    <th>Materia</th>
                     <th>Cuatrimestre</th>
                     <th>Calificacion</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in getReports())
+
+                @foreach (var item in programaEstudiantilDB.ReporteCalificacion
+                .Include(M => M.Materia)
+                .Include(E => E.Estudiante))
                 {
                     <tr>
                         <td>@item.ReporteCalificacionId</td>
-                        <td>@item.EstudianteId</td>
-                        <td>@item.MateriaId</td>
+                        <td>@FormartMatricula(item.EstudianteId)</td>
+                        <td>@item.Estudiante.Nombre @item.Estudiante.Apellido</td>
+                        <td>@item.Materia.Nombre</td>
                         <td>@item.Cuatrimestre</td>
                         <td>@FormatGrades(item.Calificacion)</td>
                     </tr>
                 }
+
             </tbody>
         </table>
     </MudCardContent>
@@ -43,7 +50,16 @@
 
 
 @code{
+    private static ProgramaEstudiantilDBContext programaEstudiantilDB = new ProgramaEstudiantilDBContext();
     List<ReporteCalificacion> getReports() => new ProgramaEstudiantilDBContext().ReporteCalificacion.ToList();
+
+    string FormartMatricula(long matricula)
+    {
+        string matri1 = matricula.ToString().Substring(0, 4);
+        string matri2 = matricula.ToString().Substring(4);
+        string matriculaCompleta = matri1 + "-" + matri2;
+        return matriculaCompleta;
+    }
 
     string FormatGrades(long nota)
     {

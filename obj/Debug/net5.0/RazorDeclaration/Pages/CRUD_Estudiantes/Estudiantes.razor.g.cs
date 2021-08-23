@@ -109,6 +109,14 @@ using Sistema_Estudiantil.Models;
       
     List<Estudiante> GetEstudiantes() => new ProgramaEstudiantilDBContext().Estudiante.ToList();
 
+    string FormartMatricula(long matricula)
+    {
+        string matri1 = matricula.ToString().Substring(0, 4);
+        string matri2 = matricula.ToString().Substring(4);
+        string matriculaCompleta = matri1 + "-" + matri2;
+        return matriculaCompleta;
+    }
+
     string FormatBeca(long becado)
     {
         string beca = becado == 0 ? "No" : "Si";
