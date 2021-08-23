@@ -7,7 +7,7 @@
         <h2 class="text-center"><strong>Editar Materia</strong></h2>
         <MudGrid Class="mt-3">
             <MudItem xs="6">
-                <MudExpansionPanel Class="bg-light" Text="Buscar materia a editar">
+                <MudExpansionPanel IsExpanded="true" Class="bg-light" Text="Buscar materia a editar">
                     <MudForm @ref="form" @bind-IsValid="success" @bind-Errors="errors">
                         <MudGrid Class="mt-3">
                             <MudItem xs="12" sm="6" md="12">
@@ -33,7 +33,7 @@
                 </MudExpansionPanel>
             </MudItem>
             <MudItem xs="6">
-                <MudExpansionPanel Class="bg-light" Text="Formulario de editar materia">
+                <MudExpansionPanel IsExpanded="true" Class="bg-light" Text="Formulario de editar materia">
                     @if (idFinded)
                     {
                         <MudForm @ref="formEdit" @bind-IsValid="successEdit" @bind-Errors="errorsEdit">
@@ -43,8 +43,15 @@
                                     <MudTextField Variant="Variant.Outlined" T="string" @bind-Value="materia.Nombre" Required="true" RequiredError="El campo de materia es requerido..." />
                                 </MudItem>
                                 <MudItem xs="12">
-                                    <label>Ingrese los Creditos de la Materia:</label>
-                                    <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="materia.Creditos" Required="true" RequiredError="El campo de creditos es requerido..." />
+                                    <label>Seleccione los Creditos de la Materia:</label>
+                                    <MudSelect Label="Creditos de la materia" @bind-Value="materia.Creditos" Variant="Variant.Outlined" HelperText="Creditos de la materia"
+                                               OffsetY="true" OpenIcon="@Icons.Material.Filled.Note" T="long" AdornmentColor="Color.Info"
+                                               Required="true" RequiredError="El campo de creditos es requerido...">
+                                        @foreach (var item in selectCredits)
+                                        {
+                                            <MudSelectItem Value="item">@item</MudSelectItem>
+                                        }
+                                    </MudSelect>
                                 </MudItem>
                                 <MudItem xs="12" Style="display:flex; justify-content:center;">
                                     <MudButton Variant="Variant.Filled" Color="Color.Success" @onclick="updateMateria" EndIcon="@Icons.Filled.Update">Actualizar materia</MudButton>
@@ -71,6 +78,8 @@
 }
 
 @code{
+    List<long> selectCredits = new List<long>() { 0, 1, 2, 3, 4, 5 };
+
     bool success;
     string[] errors = { };
     MudTextField<string> pwField1;
@@ -118,7 +127,7 @@
 
     void findMateria()
     {
-        materia.Nombre = null; 
+        materia.Nombre = null;
         using (ProgramaEstudiantilDBContext Buscar = new ProgramaEstudiantilDBContext())
         {
             if (materia.MateriaId == 0)

@@ -1,18 +1,12 @@
 @page "/CRUD_Materias/D_Materia"
 @using Sistema_Estudiantil.Models
 
-@*<h2>Eliminar Materia</h2>
-
-<p>Ingrese el codigo de la Materia: <input type="number" @bind-value="materia.MateriaId"></p>
-<button class="btn btn-primary" @onclick="DeleteMateria">Eliminar</button>
-@Mensaje*@
-
 <MudCard Style="margin:30px;">
     <MudCardContent>
         <MudIconButton Link="/CRUD_Materias/Materias" Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Primary" />
         <h2 class="text-center"><strong>Eliminar Materia</strong></h2>
         <MudGrid Class="mt-3">
-            <MudExpansionPanel Class="bg-light" Text="Formulario para eliminar la materia">
+            <MudExpansionPanel IsExpanded="true" Class="bg-light" Text="Formulario para eliminar la materia">
                 <MudForm @ref="form" @bind-IsValid="success" @bind-Errors="errors">
                     <MudGrid Class="mt-3">
                         <MudItem xs="12">

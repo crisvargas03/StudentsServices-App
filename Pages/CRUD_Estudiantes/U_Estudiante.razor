@@ -89,7 +89,7 @@
         <h2 class="text-center"><strong>Editar Estudiante</strong></h2>
         <MudGrid Class="mt-3">
             <MudItem xs="6">
-                <MudExpansionPanel Class="bg-light" Text="Buscar estudiante a editar">
+                <MudExpansionPanel IsExpanded="true" Class="bg-light" Text="Buscar estudiante a editar">
                     <MudForm @ref="form" @bind-IsValid="success" @bind-Errors="errors">
                         <MudGrid Class="mt-3">
                             <MudItem xs="12" sm="6" md="12">
@@ -117,7 +117,7 @@
                 </MudExpansionPanel>
             </MudItem>
             <MudItem xs="6">
-                <MudExpansionPanel Class="bg-light" Text="Formulario de editar materia">
+                <MudExpansionPanel IsExpanded="true" Class="bg-light" Text="Formulario de editar materia">
                     @if (idFinded)
                     {
                         <MudForm @ref="formEdit" @bind-IsValid="successEdit" @bind-Errors="errorsEdit">

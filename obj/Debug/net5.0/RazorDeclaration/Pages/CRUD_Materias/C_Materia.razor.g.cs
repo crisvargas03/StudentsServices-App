@@ -105,34 +105,36 @@ using Sistema_Estudiantil.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 54 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Intro_Ingenieria_G5\Pages\CRUD_Materias\C_Materia.razor"
+#line 61 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Intro_Ingenieria_G5\Pages\CRUD_Materias\C_Materia.razor"
       
-    bool success;
-    string[] errors = { };
-    MudTextField<string> pwField1;
-    MudForm form;
+        bool success;
+        string[] errors = { };
+        MudTextField<string> pwField1;
+        MudForm form;
 
-    Materia materia = new Materia();
+        List<long> selectCredits = new List<long>() {0,1,2,3,4,5 };
 
-    void CreateMateria()
-    {
-        //---------------obtener el ultimo registro--------------------------
-        List<Materia> getUltimoId() => new ProgramaEstudiantilDBContext().Materia.OrderByDescending(x => x.MateriaId).Take(1).ToList();
+        Materia materia = new Materia();
 
-        foreach (var i in getUltimoId())
+        void CreateMateria()
         {
-            materia.MateriaId = Convert.ToInt32(i.MateriaId + 1);
-        }
-        //----------------------Fin----------------------------
+            //---------------obtener el ultimo registro--------------------------
+            List<Materia> getUltimoId() => new ProgramaEstudiantilDBContext().Materia.OrderByDescending(x => x.MateriaId).Take(1).ToList();
 
-        using (ProgramaEstudiantilDBContext cmd_Insert = new ProgramaEstudiantilDBContext())
-        {
-            cmd_Insert.Add(materia);
-            cmd_Insert.SaveChanges();
-            ShowAlert();
-        }
+            foreach (var i in getUltimoId())
+            {
+                materia.MateriaId = Convert.ToInt32(i.MateriaId + 1);
+            }
+            //----------------------Fin----------------------------
 
-    }
+            using (ProgramaEstudiantilDBContext cmd_Insert = new ProgramaEstudiantilDBContext())
+            {
+                cmd_Insert.Add(materia);
+                cmd_Insert.SaveChanges();
+                ShowAlert();
+            }
+
+        }
 
     //Close the alerts variables
     private bool showCallAlert = false;

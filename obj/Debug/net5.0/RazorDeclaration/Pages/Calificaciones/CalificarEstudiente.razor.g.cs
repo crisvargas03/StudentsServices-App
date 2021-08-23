@@ -158,7 +158,7 @@ using Sistema_Estudiantil.Models;
         }
         //----------------------Fin----------------------------
 
-        if (report.EstudianteId == 0 || report.MateriaId == 0 || report.Cuatrimestre == null || report.Calificacion == 0)
+        if (report.EstudianteId == 0 || report.MateriaId == 0 || report.Cuatrimestre == null || report.Calificacion == 0 || report.Calificacion >=101 || report.Calificacion <= 0)
         {
             showErrorAlert = true;
         }

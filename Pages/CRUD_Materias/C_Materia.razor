@@ -8,7 +8,7 @@
         <h2 class="text-center"><strong>Agregar Materia</strong></h2>
         <MudCard Style="background-color:lightgrey;" Class="mt-3">
             <MudCardContent>
-                <MudExpansionPanel Text="Formulario">
+                <MudExpansionPanel IsExpanded="true" Text="Formulario">
                     <MudForm @ref="form" @bind-IsValid="success" @bind-Errors="errors">
                         <MudGrid Class="mt-3">
                             <MudItem xs="12" sm="6" md="6">
@@ -16,8 +16,15 @@
                                 <MudTextField Variant="Variant.Outlined" T="string" @bind-Value="materia.Nombre" Required="true" RequiredError="El campo de materia es requerido..." />
                             </MudItem>
                             <MudItem xs="12" sm="6" md="6">
-                                <label>Ingrese los Creditos de la Materia:</label>
-                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="materia.Creditos" Required="true" RequiredError="El campo de creditos es requerido..." />
+                                <label>Seleccione los Creditos de la Materia:</label>
+                                <MudSelect Label="Creditos de la materia" @bind-Value="materia.Creditos" Variant="Variant.Outlined" HelperText="Creditos de la materia"
+                                           OffsetY="true" OpenIcon="@Icons.Material.Filled.Note" T="long" AdornmentColor="Color.Info"
+                                           Required="true" RequiredError="El campo de creditos es requerido...">
+                                    @foreach (var item in selectCredits)
+                                    {
+                                        <MudSelectItem Value="item" >@item</MudSelectItem>
+                                    }
+                                </MudSelect>
                             </MudItem>
                             <MudItem xs="12" Style="display:flex; justify-content:center;">
                                 <MudButton Variant="Variant.Filled" Color="Color.Success" Disabled="@(!success)" @onclick="CreateMateria" EndIcon="@Icons.Filled.Save">Agregar</MudButton>
@@ -52,32 +59,34 @@
 
 
 @code{
-    bool success;
-    string[] errors = { };
-    MudTextField<string> pwField1;
-    MudForm form;
+        bool success;
+        string[] errors = { };
+        MudTextField<string> pwField1;
+        MudForm form;
 
-    Materia materia = new Materia();
+        List<long> selectCredits = new List<long>() {0,1,2,3,4,5 };
 
-    void CreateMateria()
-    {
-        //---------------obtener el ultimo registro--------------------------
-        List<Materia> getUltimoId() => new ProgramaEstudiantilDBContext().Materia.OrderByDescending(x => x.MateriaId).Take(1).ToList();
+        Materia materia = new Materia();
 
-        foreach (var i in getUltimoId())
+        void CreateMateria()
         {
-            materia.MateriaId = Convert.ToInt32(i.MateriaId + 1);
-        }
-        //----------------------Fin----------------------------
+            //---------------obtener el ultimo registro--------------------------
+            List<Materia> getUltimoId() => new ProgramaEstudiantilDBContext().Materia.OrderByDescending(x => x.MateriaId).Take(1).ToList();
 
-        using (ProgramaEstudiantilDBContext cmd_Insert = new ProgramaEstudiantilDBContext())
-        {
-            cmd_Insert.Add(materia);
-            cmd_Insert.SaveChanges();
-            ShowAlert();
-        }
+            foreach (var i in getUltimoId())
+            {
+                materia.MateriaId = Convert.ToInt32(i.MateriaId + 1);
+            }
+            //----------------------Fin----------------------------
 
-    }
+            using (ProgramaEstudiantilDBContext cmd_Insert = new ProgramaEstudiantilDBContext())
+            {
+                cmd_Insert.Add(materia);
+                cmd_Insert.SaveChanges();
+                ShowAlert();
+            }
+
+        }
 
     //Close the alerts variables
     private bool showCallAlert = false;

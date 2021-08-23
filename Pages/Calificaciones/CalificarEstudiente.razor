@@ -7,7 +7,7 @@
         <h2 class="text-center"><strong>Calificar Estudiante</strong></h2>
         <MudCard Style="background-color:lightgrey;" Class="mt-3">
             <MudCardContent>
-                <MudExpansionPanel Text="Formulario">
+                <MudExpansionPanel IsExpanded="true" Text="Formulario">
                     <MudForm @ref="form" @bind-IsValid="success" @bind-Errors="errors">
                         <MudGrid Class="mt-3">
                             <MudItem xs="12" sm="6" md="6">
@@ -120,7 +120,7 @@
         }
         //----------------------Fin----------------------------
 
-        if (report.EstudianteId == 0 || report.MateriaId == 0 || report.Cuatrimestre == null || report.Calificacion == 0)
+        if (report.EstudianteId == 0 || report.MateriaId == 0 || report.Cuatrimestre == null || report.Calificacion == 0 || report.Calificacion >=101 || report.Calificacion <= 0)
         {
             showErrorAlert = true;
         }

@@ -105,7 +105,7 @@ using Sistema_Estudiantil.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 70 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Intro_Ingenieria_G5\Pages\CRUD_Materias\D_Materia.razor"
+#line 64 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Intro_Ingenieria_G5\Pages\CRUD_Materias\D_Materia.razor"
       
     bool success;
     string[] errors = { };

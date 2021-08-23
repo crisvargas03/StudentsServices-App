@@ -105,7 +105,7 @@ using Sistema_Estudiantil.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 104 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Intro_Ingenieria_G5\Pages\CRUD_Estudiantes\C_Estudiante.razor"
+#line 108 "C:\Users\Lusan\Desktop\ITLA SEXTO CUATRIMESTRE\Introducción a la ingienería de Software - Evanyeline Brito\Intro_Ingenieria_G5\Pages\CRUD_Estudiantes\C_Estudiante.razor"
       
     bool success;
     string[] errors = { };
@@ -128,17 +128,25 @@ using Sistema_Estudiantil.Models;
         }
         //----------------------Fin----------------------------*/
 
-        using (ProgramaEstudiantilDBContext cmd_Insert = new ProgramaEstudiantilDBContext())
+        if (estudiante.Matricula == 0 || estudiante.Edad == 0 || estudiante.Matricula <= 0 || estudiante.Edad <= 0)
         {
-            estudiante.Condicion = 1;
-            cmd_Insert.Add(estudiante);
-            cmd_Insert.SaveChanges();
-            ShowAlert();
+            showErrorAlert = true;
         }
-
+        else
+        {
+            using (ProgramaEstudiantilDBContext cmd_Insert = new ProgramaEstudiantilDBContext())
+            {
+                estudiante.Condicion = 1;
+                showErrorAlert = false;
+                cmd_Insert.Add(estudiante);
+                cmd_Insert.SaveChanges();
+                ShowAlert();
+            }
+        }
     }
 
     //Close the alerts variables
+    private bool showErrorAlert = false;
     private bool showCallAlert = false;
     private bool showLeaveAlert = false;
     private bool errorAlert = false;

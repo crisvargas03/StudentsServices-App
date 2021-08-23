@@ -9,33 +9,33 @@
         <h2 class="text-center"><strong>Agregar Estudiante</strong></h2>
         <MudCard Style="background-color:lightgrey;" Class="mt-3">
             <MudCardContent>
-                <MudExpansionPanel Text="Formulario">
+                <MudExpansionPanel IsExpanded="true" Text="Formulario">
                     <MudForm @ref="form" @bind-IsValid="success" @bind-Errors="errors">
                         <MudGrid Class="mt-3">
                             <MudItem xs="12" sm="6" md="6">
-                                <label>Ingrese la matricla del estudiante:</label>
-                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Matricula" 
-                                              Required="true" RequiredError="El campo de matricula es requerido..." 
-                                              AdornmentIcon="@Icons.Filled.VpnKey" AdornmentColor="Color.Info" Adornment="Adornment.End"/>
+                                <label>Ingrese la matricula del estudiante:</label>
+                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Matricula"
+                                              Required="true" RequiredError="El campo de matricula es requerido..."
+                                              AdornmentIcon="@Icons.Filled.VpnKey" AdornmentColor="Color.Info" Adornment="Adornment.End" />
                             </MudItem>
                             <MudItem xs="12" sm="6" md="6">
                                 <label>Ingrese el nombre del estudiante:</label>
-                                <MudTextField Label="Nombre" Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Nombre" 
-                                              Required="true" RequiredError="El campo de nombre es requerido..." 
+                                <MudTextField Label="Nombre" Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Nombre"
+                                              Required="true" RequiredError="El campo de nombre es requerido..."
                                               AdornmentIcon="@Icons.Filled.PersonAddAlt1" AdornmentColor="Color.Info" Adornment="Adornment.End" />
                             </MudItem>
 
                             <MudItem xs="12" sm="6" md="6">
                                 <label>Ingrese el apellido del estudiante:</label>
-                                <MudTextField Label="Apellido" Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Apellido" 
-                                              Required="true" RequiredError="El campo de apellido es requerido..." 
-                                              AdornmentIcon="@Icons.Filled.PersonPin" AdornmentColor="Color.Info" Adornment="Adornment.End"/>
+                                <MudTextField Label="Apellido" Variant="Variant.Outlined" T="string" @bind-Value="estudiante.Apellido"
+                                              Required="true" RequiredError="El campo de apellido es requerido..."
+                                              AdornmentIcon="@Icons.Filled.PersonPin" AdornmentColor="Color.Info" Adornment="Adornment.End" />
                             </MudItem>
 
                             <MudItem xs="12" sm="6" md="6">
                                 <label>Ingrese la edad del estudiante:</label>
-                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Edad" 
-                                              Required="true" RequiredError="El campo de edad es requerido..." 
+                                <MudTextField Variant="Variant.Outlined" T="long" @bind-Value="estudiante.Edad"
+                                              Required="true" RequiredError="El campo de edad es requerido..."
                                               AdornmentIcon="@Icons.Filled.PermContactCalendar" AdornmentColor="Color.Info" Adornment="Adornment.End" />
                             </MudItem>
 
@@ -99,6 +99,10 @@
     </MudCardContent>
 </MudCard>
 
+@if (showErrorAlert)
+{
+    <MudAlert Style="margin-bottom:20px;" Class="mt-5" Severity="Severity.Error" AlertTextPosition="AlertTextPosition.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(false))">Error al agregar el estudiante</MudAlert>
+}
 
 
 @code{
@@ -123,17 +127,25 @@
         }
         //----------------------Fin----------------------------*/
 
-        using (ProgramaEstudiantilDBContext cmd_Insert = new ProgramaEstudiantilDBContext())
+        if (estudiante.Matricula == 0 || estudiante.Edad == 0 || estudiante.Matricula <= 0 || estudiante.Edad <= 0)
         {
-            estudiante.Condicion = 1;
-            cmd_Insert.Add(estudiante);
-            cmd_Insert.SaveChanges();
-            ShowAlert();
+            showErrorAlert = true;
         }
-
+        else
+        {
+            using (ProgramaEstudiantilDBContext cmd_Insert = new ProgramaEstudiantilDBContext())
+            {
+                estudiante.Condicion = 1;
+                showErrorAlert = false;
+                cmd_Insert.Add(estudiante);
+                cmd_Insert.SaveChanges();
+                ShowAlert();
+            }
+        }
     }
 
     //Close the alerts variables
+    private bool showErrorAlert = false;
     private bool showCallAlert = false;
     private bool showLeaveAlert = false;
     private bool errorAlert = false;

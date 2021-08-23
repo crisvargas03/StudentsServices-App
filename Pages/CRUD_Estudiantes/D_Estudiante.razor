@@ -12,7 +12,7 @@
         <MudIconButton Link="/CRUD_Estudiantes/Estudiantes" Icon="@Icons.Material.Filled.ArrowBack" Color="Color.Primary" />
         <h2 class="text-center"><strong>Eliminar Estudiante</strong></h2>
         <MudGrid Class="mt-3">
-            <MudExpansionPanel Class="bg-light" Text="Formulario para eliminar el estudiante">
+            <MudExpansionPanel IsExpanded="true" Class="bg-light" Text="Formulario para eliminar el estudiante">
                 <MudForm @ref="form" @bind-IsValid="success" @bind-Errors="errors">
                     <MudGrid Class="mt-3">
                         <MudItem xs="12">
